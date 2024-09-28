@@ -22,11 +22,11 @@ export default function Component() {
 const title = '{Organiza}';
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>{title}</Text>
+<Text style={styles.title}>{title}</Text>
       <Text style={styles.formInput}>Email</Text>
       <TextInput
         style={styles.input}
-        placeholder="Email"
+        placeholder="Digite seu email"
         value={email}
         onChangeText={setEmail}
         keyboardType="email-address"
@@ -37,7 +37,7 @@ const title = '{Organiza}';
         Senha</Text>
       <TextInput
         style={styles.input}
-        placeholder="Senha"
+        placeholder="Digite sua senha"
         value={password}
         onChangeText={setPassword}
         secureTextEntry
@@ -63,16 +63,16 @@ const title = '{Organiza}';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundImage : 'linear-gradient(45deg, #3c1779, #0073c5)',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
   },
   title: {
-    fontSize: 32,
+    fontSize: 42,
     fontWeight: 'bold',
     marginBottom: 30,
-    color: '#333',
+    color: '#fff',
   },
   input: {
     width: '100%',
@@ -83,6 +83,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginBottom: 15,
     fontSize: 16,
+    backgroundColor: '#fff',
   },
   submitButton: {
     backgroundColor: '#007AFF',
@@ -121,5 +122,12 @@ const styles = StyleSheet.create({
     width: '99.5%',
     marginBottom: 5,
     fontWeight: '400',
+    color: '#fff',
+  },
+  titleminusculo: {
+      fontSize: 34,
+      fontWeight: 'bold',
+      marginBottom: 30,
+      color: '#fff',
   }
 });
