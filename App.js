@@ -1,38 +1,125 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Button, AppRegistry } from 'react-native';
-import OlaMundo from './Components/OlaMundo';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
-const App = () => {
-  const [soma, setSoma] = useState(0);
+export default function Component() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  const btnAdd = () => {
-	setSoma(soma + 1);
+  const handleSubmit = () => {
+    console.log('Submit pressed', { email, password });
+    // Add your login logic here
   };
-const Organiza = "{Organiza}";
+
+  const handleEmployeePress = () => {
+    console.log('Sou Funcionario pressed');
+    // Add navigation or logic for employee flow
+  };
+
+  const handleCompanyPress = () => {
+    console.log('Tenho uma empresa pressed');
+    // Add navigation or logic for company flow
+  };
+const title = '{Organiza}';
   return (
-	<View style={styles.container}>
-    <Text style={
-      {fontSize: 30,
-        display: 'flex',
-        alignItems: 'center',
-      }
-    }>{Organiza}</Text>
-	  <OlaMundo />
-	  <Button onPress={btnAdd} title="Click me" />
-    <Text>Contador: {soma}</Text>
-	</View>
+    <View style={styles.container}>
+      <Text style={styles.title}>{title}</Text>
+      <Text style={styles.formInput}>Email</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        value={email}
+        onChangeText={setEmail}
+        keyboardType="email-address"
+        autoCapitalize="none"
+      />
+      <Text
+      style={styles.formInput}>
+        Senha</Text>
+      <TextInput
+        style={styles.input}
+        placeholder="Senha"
+        value={password}
+        onChangeText={setPassword}
+        secureTextEntry
+      />
+      
+      <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+        <Text style={styles.submitButtonText}>Entrar</Text>
+      </TouchableOpacity>
+      
+      <View style={styles.buttonRow}>
+        <TouchableOpacity style={styles.optionButton} onPress={handleEmployeePress}>
+          <Text style={styles.optionButtonText}>Sou Funcionario</Text>
+        </TouchableOpacity>
+        
+        <TouchableOpacity style={styles.optionButton} onPress={handleCompanyPress}>
+          <Text style={styles.optionButtonText}>Tenho uma empresa</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
-	flex: 1,
-	backgroundColor: '#fff',
-	alignItems: 'center',
-	justifyContent: 'center',
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
   },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    marginBottom: 30,
+    color: '#333',
+  },
+  input: {
+    width: '100%',
+    height: 50,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 5,
+    paddingHorizontal: 15,
+    marginBottom: 15,
+    fontSize: 16,
+  },
+  submitButton: {
+    backgroundColor: '#007AFF',
+    width: '100%',
+    height: 50,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  submitButtonText: {
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  buttonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  optionButton: {
+    backgroundColor: '#f0f0f0',
+    paddingHorizontal: 10,
+    paddingVertical: 12,
+    borderRadius: 5,
+    flex: 1,
+    marginHorizontal: 5,
+  },
+  optionButtonText: {
+    color: '#333',
+    fontSize: 14,
+    textAlign: 'center',
+  },
+  formInput: {
+    textAlign: 'left',
+    width: '99.5%',
+    marginBottom: 5,
+    fontWeight: '400',
+  }
 });
-
-AppRegistry.registerComponent('main', () => App);
-
-export default App;
