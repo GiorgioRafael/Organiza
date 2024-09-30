@@ -1,7 +1,13 @@
+import 'react-native-gesture-handler';
 import React, { useState } from 'react';
+import TelaEstoque from './Components/TelaEstoque';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { NavigationContainer } from '@react-navigation/native';
 
-export default function Component() {
+
+//Componente principal da tela de login
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -19,7 +25,8 @@ export default function Component() {
     console.log('Tenho uma empresa pressed');
     // Add navigation or logic for company flow
   };
-const title = '{Organiza}';
+
+  const title = '{Organiza}';
   return (
     <View style={styles.container}>
 <Text style={styles.title}>{title}</Text>
@@ -43,7 +50,9 @@ const title = '{Organiza}';
         secureTextEntry
       />
       
-      <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+      <TouchableOpacity 
+      style={styles.submitButton} 
+      onPress={() => navigation.navigate('TelaEstoque')}>
         <Text style={styles.submitButtonText}>Entrar</Text>
       </TouchableOpacity>
       
@@ -59,6 +68,22 @@ const title = '{Organiza}';
     </View>
   );
 }
+const ola = false
+const Stack = createStackNavigator();
+
+//Componente principal de navegação!
+const App = () => {
+  return (
+    <NavigationContainer>
+       <Stack.Navigator initialRouteName="LoginScreen" screenOptions={{headerShown: false}}>
+         <Stack.Screen name=" " component={LoginScreen}/>
+        <Stack.Screen name="TelaEstoque" component={TelaEstoque} options={{ title: 'Tela de Estoque' }}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {
