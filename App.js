@@ -68,11 +68,23 @@ const LoginScreen = ({ navigation }) => {
     </View>
   );
 }
-const ola = false
+
+
 const Stack = createStackNavigator();
 
 //Componente principal de navegação!
 const App = () => {
+  return (
+    <NavigationContainer>
+       <Stack.Navigator initialRouteName="LoginScreen" screenOptions={{headerShown: false}}>
+         <Stack.Screen name=" " component={LoginScreen}/>
+        <Stack.Screen name="TelaEstoque" component={TelaEstoque} options={{ title: 'Tela de Estoque' }}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+  )
+}
+
+const appi = () => {
   return (
     <NavigationContainer>
        <Stack.Navigator initialRouteName="LoginScreen" screenOptions={{headerShown: false}}>
