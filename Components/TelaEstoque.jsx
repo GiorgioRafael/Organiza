@@ -1,19 +1,23 @@
+import 'react-native-gesture-handler';
+
 import React, { useState } from 'react';
 import { Text, View, Button, StyleSheet, TextInput, FlatList, TouchableOpacity } from 'react-native';
-
+import FormProduto from './FormProduto';
 const TelaEstoque = ({ navigation }) => {
 
     // Serve para armazenar os produtos e adicionar novos itens!
     const [produtos, setProdutos] = useState([]);
     const [nomeProduto, setNomeProduto] = useState('');
     const [quantidade, setQuantidade] = useState('');
+    const [preco, setPreco] = useState('');
   
     // Função par adicionar um novo produto ao estoque
     const adicionarProduto = () => {
-      if (nomeProduto && quantidade) {
-        setProdutos([...produtos, { nome: nomeProduto, quantidade: quantidade }]);
+      if (nomeProduto && quantidade && preco) {
+        setProdutos([...produtos, { nome: nomeProduto, quantidade: quantidade, preco: preco }]);
         setNomeProduto('');
         setQuantidade('');
+        setPreco('');
       }
     };
   
@@ -22,22 +26,21 @@ const TelaEstoque = ({ navigation }) => {
       <View style={styles.itemContainer}>
         <Text style={styles.itemText}>{item.nome}</Text>
         <Text style={styles.itemText}>Quantidade: {item.quantidade}</Text>
+        <Text style={styles.itemText}>Preço: {item.preco}</Text>
       </View>
     );
   
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Gerador de Estoque</Text>
+        <Text style={styles.title}>Estoque  </Text>
   
-        {/* Campo para inserir o nome do produto */}
-        <TextInput
+        {/* <TextInput
           style={styles.input}
           placeholder="Nome do produto"
           value={nomeProduto}
           onChangeText={setNomeProduto}
         />
   
-        {/* Campo para inserir a quantidade */}
         <TextInput
           style={styles.input}
           placeholder="Quantidade"
@@ -45,13 +48,27 @@ const TelaEstoque = ({ navigation }) => {
           onChangeText={setQuantidade}
           keyboardType="numeric"
         />
+
+<TextInput
+          style={styles.input}
+          placeholder="Preço"
+          value={preco}
+          onChangeText={setPreco}
+          keyboardType="numeric"
+        />
   
-        {/* Botão para adicionar o produto */}
+        
         <TouchableOpacity style={styles.addButton} onPress={adicionarProduto}>
-          <Text style={styles.addButtonText}>Adicionar Produto</Text>
+          <Text style={styles.addButtonText}>Novo produto</Text>
+        </TouchableOpacity> */}
+
+        <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('FormProduto')}>
+          <Text style={styles.addButtonText}>Novo produto</Text>
         </TouchableOpacity>
+
   
         {/* Lista de produtos adicionados */}
+        <Text style={styles.titleH2}>Produtos</Text>
         <FlatList
           data={produtos}
           keyExtractor={(item, index) => index.toString()}
@@ -61,7 +78,6 @@ const TelaEstoque = ({ navigation }) => {
         />
   
         {/* Botão para voltar à tela inicial */}
-        <Button title="Voltar para a tela inicial" onPress={() => navigation.goBack()} />
       </View>
     );
   };
@@ -76,9 +92,16 @@ const TelaEstoque = ({ navigation }) => {
       padding: 20,
     },
     title: {
+      paddingTop: 20,
       fontSize: 24,
       fontWeight: 'bold',
       marginBottom: 20,
+    },
+    titleH2: {
+      paddingTop: 5,
+      fontSize: 16,
+      fontWeight: '500',
+      marginBottom: 5,
     },
     input: {
       width: '100%',
@@ -109,8 +132,9 @@ const TelaEstoque = ({ navigation }) => {
     },
     itemContainer: {
       padding: 15,
-      borderBottomWidth: 1,
-      borderBottomColor: '#ddd',
+      borderBottomColor: '#090979',
+      borderBottomWidth: 1.5,
+      borderRadius: 5,
       flexDirection: 'row',
       justifyContent: 'space-between',
     },

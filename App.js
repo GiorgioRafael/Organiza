@@ -4,7 +4,8 @@ import TelaEstoque from './Components/TelaEstoque';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-
+import { LinearGradient } from 'expo-linear-gradient';
+import FormProduto from './Components/FormProduto';
 
 //Componente principal da tela de login
 const LoginScreen = ({ navigation }) => {
@@ -29,6 +30,10 @@ const LoginScreen = ({ navigation }) => {
   const title = '{Organiza}';
   return (
     <View style={styles.container}>
+            <LinearGradient
+        colors={['#090979', '#020024']}
+        style={styles.background}
+      />
 <Text style={styles.title}>{title}</Text>
       <Text style={styles.formInput}>Email</Text>
       <TextInput
@@ -64,7 +69,18 @@ const LoginScreen = ({ navigation }) => {
         <TouchableOpacity style={styles.optionButton} onPress={handleCompanyPress}>
           <Text style={styles.optionButtonText}>Tenho uma empresa</Text>
         </TouchableOpacity>
+
+
       </View>
+      <View style={styles.buttonRowHelp}>
+      <TouchableOpacity>
+          <Text style={styles.needHelp}>Preciso de ajuda</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+          <Text style={styles.needHelp}>Esqueci a senha</Text>
+        </TouchableOpacity>
+        </View>
     </View>
   );
 }
@@ -77,18 +93,8 @@ const App = () => {
   return (
     <NavigationContainer>
        <Stack.Navigator initialRouteName="LoginScreen" screenOptions={{headerShown: false}}>
-         <Stack.Screen name=" " component={LoginScreen}/>
-        <Stack.Screen name="TelaEstoque" component={TelaEstoque} options={{ title: 'Tela de Estoque' }}/>
-      </Stack.Navigator>
-    </NavigationContainer>
-  )
-}
-
-const appi = () => {
-  return (
-    <NavigationContainer>
-       <Stack.Navigator initialRouteName="LoginScreen" screenOptions={{headerShown: false}}>
-         <Stack.Screen name=" " component={LoginScreen}/>
+         <Stack.Screen name="LoginScreen" component={LoginScreen}/>
+         <Stack.Screen name="FormProduto" component={FormProduto}/>
         <Stack.Screen name="TelaEstoque" component={TelaEstoque} options={{ title: 'Tela de Estoque' }}/>
       </Stack.Navigator>
     </NavigationContainer>
@@ -141,6 +147,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     width: '100%',
   },
+  buttonRowHelp: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    padding: 10,
+  },
   optionButton: {
     backgroundColor: '#f0f0f0',
     paddingHorizontal: 10,
@@ -166,5 +178,18 @@ const styles = StyleSheet.create({
       fontWeight: 'bold',
       marginBottom: 30,
       color: '#fff',
+  },
+  background: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: '110%',
+  },
+  needHelp: {
+    color: '#fff',
+    fontSize: 12,
+    fontWeight: 'bold',
+    marginTop: 20,
   }
 });
