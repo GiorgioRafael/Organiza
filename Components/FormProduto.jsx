@@ -10,10 +10,12 @@ const FormProduto = ( { navigation, route }) => {
     const adicionarProduto = () => {
         if (nomeProduto && quantidade && preco) {
           const newProduto = { nome: nomeProduto, quantidade: quantidade, preco: preco };
-          setProdutos([...produtos, newProduto]);
+          const updatedProdutos= [...produtos, newProduto]
+          setProdutos(updatedProdutos);
           setNomeProduto('');
           setQuantidade('');
           setPreco('');
+          console.log(updatedProdutos)
         }
       };
 
@@ -52,7 +54,7 @@ const FormProduto = ( { navigation, route }) => {
         <TouchableOpacity style={styles.addButton} onPress={adicionarProduto}>
           <Text style={styles.addButtonText}>Adicionar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('TelaEstoque', {nomeProduto: nomeProduto, quantidade: quantidade, preco: preco})}>
+        <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('TelaEstoque', { produtos })}>
           <Text style={styles.addButtonText}>Voltar</Text>
         </TouchableOpacity>
 </View>

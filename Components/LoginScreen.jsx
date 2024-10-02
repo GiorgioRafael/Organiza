@@ -10,17 +10,17 @@ const LoginScreen = ({ navigation }) => {
   
     const handleSubmit = () => {
       console.log('Submit pressed', { email, password });
-      // Add your login logic here
+      // logica de verificação de login
     };
   
     const handleEmployeePress = () => {
       console.log('Sou Funcionario pressed');
-      // Add navigation or logic for employee flow
+      // logica para botão funcionario
     };
   
     const handleCompanyPress = () => {
       console.log('Tenho uma empresa pressed');
-      // Add navigation or logic for company flow
+      // logica para criacao de conta/empresa
     };
   
     const title = '{Organiza}';

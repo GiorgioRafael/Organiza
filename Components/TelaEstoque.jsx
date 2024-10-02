@@ -3,8 +3,9 @@ import 'react-native-gesture-handler';
 import React, { useState } from 'react';
 import { Text, View, Button, StyleSheet, TextInput, FlatList, TouchableOpacity } from 'react-native';
 import FormProduto from './FormProduto';
-const TelaEstoque = ({ navigation, produtos }) => {
-    
+const TelaEstoque = ({ navigation, route }) => {
+  const { produtos } = route.params;
+
     // Função para renderizar cada item da lista
     const renderProduto = ({ item }) => (
       <View style={styles.itemContainer}>
