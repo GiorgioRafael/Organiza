@@ -6,96 +6,32 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
 import FormProduto from './Components/FormProduto';
+import LoginScreen from './Components/LoginScreen';
+
 
 //Componente principal da tela de login
-const LoginScreen = ({ navigation }) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-
-  const handleSubmit = () => {
-    console.log('Submit pressed', { email, password });
-    // Add your login logic here
-  };
-
-  const handleEmployeePress = () => {
-    console.log('Sou Funcionario pressed');
-    // Add navigation or logic for employee flow
-  };
-
-  const handleCompanyPress = () => {
-    console.log('Tenho uma empresa pressed');
-    // Add navigation or logic for company flow
-  };
-
-  const title = '{Organiza}';
-  return (
-    <View style={styles.container}>
-            <LinearGradient
-        colors={['#090979', '#020024']}
-        style={styles.background}
-      />
-<Text style={styles.title}>{title}</Text>
-      <Text style={styles.formInput}>Email</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Digite seu email"
-        value={email}
-        onChangeText={setEmail}
-        keyboardType="email-address"
-        autoCapitalize="none"
-      />
-      <Text
-      style={styles.formInput}>
-        Senha</Text>
-      <TextInput
-        style={styles.input}
-        placeholder="Digite sua senha"
-        value={password}
-        onChangeText={setPassword}
-        secureTextEntry
-      />
-      
-      <TouchableOpacity 
-      style={styles.submitButton} 
-      onPress={() => navigation.navigate('TelaEstoque')}>
-        <Text style={styles.submitButtonText}>Entrar</Text>
-      </TouchableOpacity>
-      
-      <View style={styles.buttonRow}>
-        <TouchableOpacity style={styles.optionButton} onPress={handleEmployeePress}>
-          <Text style={styles.optionButtonText}>Sou Funcionario</Text>
-        </TouchableOpacity>
-        
-        <TouchableOpacity style={styles.optionButton} onPress={handleCompanyPress}>
-          <Text style={styles.optionButtonText}>Tenho uma empresa</Text>
-        </TouchableOpacity>
-
-
-      </View>
-      <View style={styles.buttonRowHelp}>
-      <TouchableOpacity>
-          <Text style={styles.needHelp}>Preciso de ajuda</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity>
-          <Text style={styles.needHelp}>Esqueci a senha</Text>
-        </TouchableOpacity>
-        </View>
-    </View>
-  );
-}
 
 
 const Stack = createStackNavigator();
 
 //Componente principal de navegação!
 const App = () => {
+  const [produtos, setProdutos] = useState([]);
   return (
     <NavigationContainer>
-       <Stack.Navigator initialRouteName="LoginScreen" screenOptions={{headerShown: false}}>
-         <Stack.Screen name="LoginScreen" component={LoginScreen}/>
-         <Stack.Screen name="FormProduto" component={FormProduto}/>
-        <Stack.Screen name="TelaEstoque" component={TelaEstoque} options={{ title: 'Tela de Estoque' }}/>
+       <Stack.Navigator initialRouteName="LoginScreen" component={LoginScreen} screenOptions={{headerShown: false}}>
+         <Stack.Screen
+         name="LoginScreen"
+         component={LoginScreen}/>
+         <Stack.Screen
+          name="FormProduto"
+          component={FormProduto}
+          initialParams={{produtos, setProdutos}}/>
+        <Stack.Screen
+        name="TelaEstoque"
+        component={TelaEstoque}
+        initialParams={{produtos}}
+        options={{ title: 'Tela de Estoque' }}/>
       </Stack.Navigator>
     </NavigationContainer>
   )

@@ -3,24 +3,8 @@ import 'react-native-gesture-handler';
 import React, { useState } from 'react';
 import { Text, View, Button, StyleSheet, TextInput, FlatList, TouchableOpacity } from 'react-native';
 import FormProduto from './FormProduto';
-const TelaEstoque = ({ navigation }) => {
-
-    // Serve para armazenar os produtos e adicionar novos itens!
-    const [produtos, setProdutos] = useState([]);
-    const [nomeProduto, setNomeProduto] = useState('');
-    const [quantidade, setQuantidade] = useState('');
-    const [preco, setPreco] = useState('');
-  
-    // Função par adicionar um novo produto ao estoque
-    const adicionarProduto = () => {
-      if (nomeProduto && quantidade && preco) {
-        setProdutos([...produtos, { nome: nomeProduto, quantidade: quantidade, preco: preco }]);
-        setNomeProduto('');
-        setQuantidade('');
-        setPreco('');
-      }
-    };
-  
+const TelaEstoque = ({ navigation, produtos }) => {
+    
     // Função para renderizar cada item da lista
     const renderProduto = ({ item }) => (
       <View style={styles.itemContainer}>
@@ -29,7 +13,6 @@ const TelaEstoque = ({ navigation }) => {
         <Text style={styles.itemText}>Preço: {item.preco}</Text>
       </View>
     );
-  
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Estoque  </Text>

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Text, View, Button, StyleSheet, TextInput, FlatList, TouchableOpacity } from 'react-native';
 
-const FormProduto = ( { navigation }) => {
-
-    const [produtos, setProdutos] = useState([]);
+const FormProduto = ( { navigation, route }) => {
+    const { produtos, setProdutos } = route.params;
     const [nomeProduto, setNomeProduto] = useState('');
     const [quantidade, setQuantidade] = useState('');
     const [preco, setPreco] = useState('');
 
     const adicionarProduto = () => {
         if (nomeProduto && quantidade && preco) {
-          setProdutos([...produtos, { nome: nomeProduto, quantidade: quantidade, preco: preco }]);
+          const newProduto = { nome: nomeProduto, quantidade: quantidade, preco: preco };
+          setProdutos([...produtos, newProduto]);
           setNomeProduto('');
           setQuantidade('');
           setPreco('');
@@ -18,13 +18,6 @@ const FormProduto = ( { navigation }) => {
       };
 
         // Função para renderizar cada item da lista
-    const renderProduto = ({ item }) => (
-        <View style={styles.itemContainer}>
-          <Text style={styles.itemText}>{item.nome}</Text>
-          <Text style={styles.itemText}>Quantidade: {item.quantidade}</Text>
-          <Text style={styles.itemText}>Preço: {item.preco}</Text>
-        </View>
-      );
 
   return (
 <View style={styles.container}>
@@ -59,7 +52,7 @@ const FormProduto = ( { navigation }) => {
         <TouchableOpacity style={styles.addButton} onPress={adicionarProduto}>
           <Text style={styles.addButtonText}>Adicionar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.addButton} onPress={() => navigation.goBack()}>
+        <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('TelaEstoque', {nomeProduto: nomeProduto, quantidade: quantidade, preco: preco})}>
           <Text style={styles.addButtonText}>Voltar</Text>
         </TouchableOpacity>
 </View>
