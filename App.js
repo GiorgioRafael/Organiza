@@ -1,39 +1,21 @@
 import 'react-native-gesture-handler';
 import React, { useState } from 'react';
-import TelaEstoque from './Components/TelaEstoque';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { LinearGradient } from 'expo-linear-gradient';
-import FormProduto from './Components/FormProduto';
-import LoginScreen from './Components/LoginScreen';
+
+import Routes from './routes/index.routes';
 
 
 //Componente principal da tela de login
 
 
-const Stack = createStackNavigator();
 
 //Componente principal de navegação!
 const App = () => {
-  const [produtos, setProdutos] = useState([]);
   return (
-    <NavigationContainer>
-       <Stack.Navigator initialRouteName="LoginScreen" component={LoginScreen} screenOptions={{headerShown: false}}>
-         <Stack.Screen
-         name="LoginScreen"
-         component={LoginScreen}/>
-         <Stack.Screen
-          name="FormProduto"
-          component={FormProduto}
-          initialParams={{produtos, setProdutos}}/>
-        <Stack.Screen
-        name="TelaEstoque"
-        component={TelaEstoque}
-        initialParams={{produtos}}
-        options={{ title: 'Tela de Estoque' }}/>
-      </Stack.Navigator>
-    </NavigationContainer>
+       <Routes />
   )
 }
 

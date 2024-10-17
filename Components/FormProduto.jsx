@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Text, View, Button, StyleSheet, TextInput, FlatList, TouchableOpacity } from 'react-native';
+import addNew from '../Db'
 
-const FormProduto = ( { navigation, route }) => {
+export const FormProduto = ( { navigation, route }) => {
     const { produtos, setProdutos } = route.params;
     const [nomeProduto, setNomeProduto] = useState('');
     const [quantidade, setQuantidade] = useState('');
@@ -10,6 +11,7 @@ const FormProduto = ( { navigation, route }) => {
     const adicionarProduto = () => {
         if (nomeProduto && quantidade && preco) {
           const newProduto = { nome: nomeProduto, quantidade: quantidade, preco: preco };
+          //newProduto.nome 
           const updatedProdutos= [...produtos, newProduto]
           setProdutos(updatedProdutos);
           setNomeProduto('');
@@ -18,7 +20,7 @@ const FormProduto = ( { navigation, route }) => {
           console.log(updatedProdutos)
         }
       };
-
+      
         // Função para renderizar cada item da lista
 
   return (
@@ -54,7 +56,7 @@ const FormProduto = ( { navigation, route }) => {
         <TouchableOpacity style={styles.addButton} onPress={adicionarProduto}>
           <Text style={styles.addButtonText}>Adicionar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('TelaEstoque', { produtos })}>
+        <TouchableOpacity style={styles.addButton} onPress={ addNew()}>
           <Text style={styles.addButtonText}>Voltar</Text>
         </TouchableOpacity>
 </View>
