@@ -4,36 +4,30 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 
 
-const LoginScreen = ({ navigation }) => {
+const EmpresaLogin = ({ navigation }) => {
+    const [empresaNome, setEmpresa] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
   
-    const handleSubmit = () => {
-      // logica verificacao de login abaix
+    const handleProximo = () => {
+      // logica verificacao de login abaixo
 
 
       //se o usuario existir na database:
-      navigation.navigate('TelaEstoque'); //ir para tela estoque
+      navigation.navigate('EmpresaLoginNext'); //ir para tela estoque
  
+    };
+  
+    const handleTelaInicial = () => {
+      navigation.navigate('LoginScreen');
+
     };
   
     const handleFuncionario = () => {
-      // logica verificacao de login abaixo
-
-
-      //se o usuario existir na database:
-      navigation.navigate('FuncionarioLogin'); //ir para tela estoque
- 
+      navigation.navigate('LoginScreen')
+      // logica para criacao de conta/empresa
     };
-    const handleEmpresa = () => {
-      // logica verificacao de login abaixo
-
-
-      //se o usuario existir na database:
-      navigation.navigate('EmpresaLogin'); //ir para tela estoque
- 
-    };
-  
+  let Loginpart = 1;
     const title = '{Organiza}';
     return (
       <View style={styles.container}>
@@ -42,30 +36,29 @@ const LoginScreen = ({ navigation }) => {
           style={styles.background}
           />
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.formInput}>Email</Text>
+        <Text style={styles.title2}>Registro de empresa</Text>
+        
+        <Text style={styles.formInput}>Nome da empresa</Text>
         <TextInput
           style={styles.input}
-          placeholder="Digite seu email"
-          value={email}
-          onChangeText={(text)=> setEmail(text)}
-          keyboardType="email-address"
-          autoCapitalize="none"
+          placeholder="Digite o nome da empresa"
+          onChangeText={(text)=> setEmpresa(text)}
         />
         <Text
         style={styles.formInput}>
-          Senha</Text>
+          Email</Text>
         <TextInput
           style={styles.input}
-          placeholder="Digite sua senha"
+          placeholder="Digite seu email"
           value={password}
-          onChangeText={(text)=> setPassword(text)}
+          onChangeText={(text)=> setEmail(text)}
           secureTextEntry
         />
         
         <TouchableOpacity 
         style={styles.submitButton} 
-        onPress={handleSubmit}>
-          <Text style={styles.submitButtonText}>Entrar</Text>
+        onPress={handleProximo}>
+          <Text style={styles.submitButtonText}>Próximo</Text>
         </TouchableOpacity>
         
         <View style={styles.buttonRow}>
@@ -73,8 +66,8 @@ const LoginScreen = ({ navigation }) => {
             <Text style={styles.optionButtonText}>Sou Funcionario</Text>
           </TouchableOpacity>
           
-          <TouchableOpacity style={styles.optionButton} onPress={handleEmpresa}>
-            <Text style={styles.optionButtonText}>Tenho uma empresa</Text>
+          <TouchableOpacity style={styles.optionButton} onPress={handleTelaInicial}>
+            <Text style={styles.optionButtonText}>Tela inicial</Text>
           </TouchableOpacity>
         </View>
   
@@ -105,6 +98,12 @@ const LoginScreen = ({ navigation }) => {
       marginBottom: 30,
       color: '#fff',
     },
+    title2: {
+      fontSize: 32,
+      fontWeight: 'bold',
+      marginBottom: 30,
+      color: '#fff',
+    },
     input: {
       width: '100%',
       height: 50,
@@ -123,6 +122,7 @@ const LoginScreen = ({ navigation }) => {
       borderRadius: 5,
       justifyContent: 'center',
       alignItems: 'center',
+      maringTop: 15,
       marginBottom: 20,
     },
     submitButtonText: {
@@ -185,4 +185,4 @@ const LoginScreen = ({ navigation }) => {
 
 
 
-  export default LoginScreen;
+  export default EmpresaLogin;

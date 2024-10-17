@@ -4,12 +4,13 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 
 
-const LoginScreen = ({ navigation }) => {
+const FuncionarioLogin = ({ navigation }) => {
+    const [empresaNome, setEmpresa] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
   
     const handleSubmit = () => {
-      // logica verificacao de login abaix
+      // logica verificacao de login abaixo
 
 
       //se o usuario existir na database:
@@ -17,21 +18,14 @@ const LoginScreen = ({ navigation }) => {
  
     };
   
-    const handleFuncionario = () => {
-      // logica verificacao de login abaixo
+    const handleEmployeePress = () => {
+      navigation.navigate('FuncionarioLogin');
 
-
-      //se o usuario existir na database:
-      navigation.navigate('FuncionarioLogin'); //ir para tela estoque
- 
     };
-    const handleEmpresa = () => {
-      // logica verificacao de login abaixo
-
-
-      //se o usuario existir na database:
-      navigation.navigate('EmpresaLogin'); //ir para tela estoque
- 
+  
+    const handleCompanyPress = () => {
+      console.log('Tenho uma empresa pressed');
+      // logica para criacao de conta/empresa
     };
   
     const title = '{Organiza}';
@@ -42,21 +36,13 @@ const LoginScreen = ({ navigation }) => {
           style={styles.background}
           />
         <Text style={styles.title}>{title}</Text>
-        <Text style={styles.formInput}>Email</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Digite seu email"
-          value={email}
-          onChangeText={(text)=> setEmail(text)}
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
+
         <Text
-        style={styles.formInput}>
-          Senha</Text>
+        style={styles.title2}>
+          Digite o código recebido pelo seu gestor</Text>
         <TextInput
           style={styles.input}
-          placeholder="Digite sua senha"
+          placeholder="insira o código"
           value={password}
           onChangeText={(text)=> setPassword(text)}
           secureTextEntry
@@ -69,22 +55,22 @@ const LoginScreen = ({ navigation }) => {
         </TouchableOpacity>
         
         <View style={styles.buttonRow}>
-          <TouchableOpacity style={styles.optionButton} onPress={handleFuncionario}>
-            <Text style={styles.optionButtonText}>Sou Funcionario</Text>
+          <TouchableOpacity style={styles.optionButton} onPress={() => navigation.navigate('LoginScreen')}>
+            <Text style={styles.optionButtonText}>Tela Principal</Text>
           </TouchableOpacity>
           
-          <TouchableOpacity style={styles.optionButton} onPress={handleEmpresa}>
+          <TouchableOpacity style={styles.optionButton} onPress={handleCompanyPress}>
             <Text style={styles.optionButtonText}>Tenho uma empresa</Text>
           </TouchableOpacity>
         </View>
   
         <View style={styles.buttonRowHelp}>
         <TouchableOpacity>
-            <Text style={styles.needHelp}>Preciso de ajuda</Text>
+            <Text style={styles.needHelp}>Não tenho um código</Text>
           </TouchableOpacity>
   
           <TouchableOpacity>
-            <Text style={styles.needHelp}>Esqueci a senha</Text>
+            <Text style={styles.needHelp}>Preciso de ajuda</Text>
           </TouchableOpacity>
           </View>
       </View>
@@ -101,6 +87,12 @@ const LoginScreen = ({ navigation }) => {
     },
     title: {
       fontSize: 42,
+      fontWeight: 'bold',
+      marginBottom: 30,
+      color: '#fff',
+    },
+    title2: {
+      fontSize: 28,
       fontWeight: 'bold',
       marginBottom: 30,
       color: '#fff',
@@ -185,4 +177,4 @@ const LoginScreen = ({ navigation }) => {
 
 
 
-  export default LoginScreen;
+  export default FuncionarioLogin;
