@@ -7,10 +7,8 @@ import TelaEstoque from '../Components/TelaEstoque'
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { useState } from 'react';
-import Db from '../Db'
 import FuncionarioLogin from '../Components/FuncionarioLogin'
 import EmpresaLogin from '../Components/EmpresaLogin'
-import EmpresaLoginNext from '../Components/EmpresaLoginNext'
 
 
 const Stack = createStackNavigator();
@@ -40,11 +38,6 @@ const Routes = () => {
         />
 
         <Stack.Screen
-        name='Db'
-        component={Db}
-        initialParams={{ produtos }}
-        />
-        <Stack.Screen
          name="FuncionarioLogin"
          component={FuncionarioLogin}
         />
@@ -52,11 +45,6 @@ const Routes = () => {
         <Stack.Screen
          name="EmpresaLogin"
          component={EmpresaLogin}
-        />
-        
-        <Stack.Screen
-        name='EmpresaLoginNext'
-        component={EmpresaLoginNext}
         />
       </Stack.Navigator>
     </NavigationContainer>

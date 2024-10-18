@@ -5,9 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 
 const FuncionarioLogin = ({ navigation }) => {
-    const [empresaNome, setEmpresa] = useState('');
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [codigoLogin, setCodigoLogin] = useState('');
   
     const handleSubmit = () => {
       // logica verificacao de login abaixo
@@ -18,13 +16,8 @@ const FuncionarioLogin = ({ navigation }) => {
  
     };
   
-    const handleEmployeePress = () => {
-      navigation.navigate('FuncionarioLogin');
-
-    };
-  
     const handleCompanyPress = () => {
-      console.log('Tenho uma empresa pressed');
+      navigation.navigate('EmpresaLogin');
       // logica para criacao de conta/empresa
     };
   
@@ -42,9 +35,9 @@ const FuncionarioLogin = ({ navigation }) => {
           Digite o código recebido pelo seu gestor</Text>
         <TextInput
           style={styles.input}
-          placeholder="insira o código"
-          value={password}
-          onChangeText={(text)=> setPassword(text)}
+          placeholder="Insira o código"
+          value={codigoLogin}
+          onChangeText={(codigoLogin)=> setCodigoLogin(codigoLogin)}
           secureTextEntry
         />
         

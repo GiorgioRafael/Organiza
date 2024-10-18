@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { Text, View, Button, StyleSheet, TextInput, FlatList, TouchableOpacity } from 'react-native';
-import addNew from '../Db'
+import Routes from '../routes/index.routes';
 
-export const FormProduto = ( { navigation, route }) => {
-    const { produtos, setProdutos } = route.params;
+export const FormProduto = ( {navigation }) => {
+    const [codigoProd, setCodigoProd] = useState('');
     const [nomeProduto, setNomeProduto] = useState('');
     const [quantidade, setQuantidade] = useState('');
     const [preco, setPreco] = useState('');
@@ -18,6 +18,8 @@ export const FormProduto = ( { navigation, route }) => {
           setQuantidade('');
           setPreco('');
           console.log(updatedProdutos)
+        } else {
+          alert('Preencha todos os campos');
         }
       };
       
@@ -28,36 +30,48 @@ export const FormProduto = ( { navigation, route }) => {
         <Text style={styles.title}>Estoque  </Text>
   
         {/* Campo para inserir o nome do produto */}
+        <Text style={styles.formInput}>Código do produto</Text>
+        <TextInput
+        
+          style={styles.input}
+          placeholder="ex.: 7898357417892" 
+          value={codigoProd}
+          onChangeText={(codigoProd)=> setCodigoProd(codigoProd)}
+          keyboardType = 'numeric'
+        />
+        <Text style={styles.formInput}>Nome do produto</Text>
         <TextInput
           style={styles.input}
-          placeholder="Nome do produto"
+          placeholder="Descrição do produto"
           value={nomeProduto}
-          onChangeText={setNomeProduto}
+          onChangeText={(nomeProduto)=> setNomeProduto(nomeProduto)}
         />
   
         {/* Campo para inserir a quantidade */}
+        <Text style={styles.formInput}>Quantidade</Text>
         <TextInput
           style={styles.input}
-          placeholder="Quantidade"
+          placeholder="Unidades disponíveis"
           value={quantidade}
-          onChangeText={setQuantidade}
+          onChangeText={(quantidade)=> setQuantidade(quantidade)}
           keyboardType="numeric"
         />
-
-<TextInput
+        <Text style={styles.formInput}>Preço</Text>
+        <TextInput
           style={styles.input}
-          placeholder="Preço"
+          placeholder="Preço do produto em R$"
           value={preco}
           onChangeText={setPreco}
           keyboardType="numeric"
         />
   
         {/* Botão para adicionar o produto */}
-        <TouchableOpacity style={styles.addButton} onPress={adicionarProduto}>
+        <TouchableOpacity style={styles.addButton} onPress={()=> adicionarProduto}>
           <Text style={styles.addButtonText}>Adicionar</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.addButton} onPress={ addNew()}>
-          <Text style={styles.addButtonText}>Voltar</Text>
+
+        <TouchableOpacity style={styles.addButton} onPress={()=> navigation.navigate('TelaEstoque')}>
+          <Text style={styles.addButtonText}>Voltar ao estoque</Text>
         </TouchableOpacity>
 </View>
   )
@@ -92,6 +106,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: 15,
     marginBottom: 15,
     backgroundColor: '#fff',
+  },
+  formInput: {
+    textAlign: 'left',
+    width: '99.5%',
+    marginBottom: 5,
+    fontWeight: '400',
+    color: 'black',
   },
   addButton: {
     backgroundColor: '#007AFF',

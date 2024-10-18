@@ -1,18 +1,11 @@
 import 'react-native-gesture-handler';
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
-import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer } from '@react-navigation/native';
-import { LinearGradient } from 'expo-linear-gradient';
-
+import { StyleSheet } from 'react-native';
 import Routes from './routes/index.routes';
 
 
-//Componente principal da tela de login
 
 
-
-//Componente principal de navegação!
+//função princpal da aplicação
 const App = () => {
   return (
        <Routes />
@@ -21,6 +14,9 @@ const App = () => {
 
 export default App;
 
+
+
+//Folha de estilos 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
