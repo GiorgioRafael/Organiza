@@ -1,14 +1,24 @@
 import 'react-native-gesture-handler';
 import { StyleSheet } from 'react-native';
 import Routes from './routes/index.routes';
-
-
-
+import { Link } from 'expo-router'
 
 //função princpal da aplicação
 const App = () => {
   return (
-       <Routes />
+    <Link
+      href={'/components/firebaseAdd'}>
+    </Link>,
+    <Link
+      href={'/components/firebaseDelete'}>
+    </Link>,
+    <Link
+      href={'/components/firebaseUpdate'}>
+    </Link>,
+    <Link
+      href={'/components/firebaseList'}>
+    </Link>,
+    <Routes />
   )
 }
 

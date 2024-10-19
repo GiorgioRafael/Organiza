@@ -1,28 +1,32 @@
 import React, { useState } from 'react';
 import { Text, View, Button, StyleSheet, TextInput, FlatList, TouchableOpacity } from 'react-native';
 import Routes from '../routes/index.routes';
+import { app } from '../config';
+import { addDoc, getFirestore, collection } from 'firebase/firestore';
+
 
 export const FormProduto = ( {navigation }) => {
     const [codigoProd, setCodigoProd] = useState('');
     const [nomeProduto, setNomeProduto] = useState('');
     const [quantidade, setQuantidade] = useState('');
     const [preco, setPreco] = useState('');
-
-    const adicionarProduto = () => {
-        if (nomeProduto && quantidade && preco) {
-          const newProduto = { nome: nomeProduto, quantidade: quantidade, preco: preco };
-          //newProduto.nome 
-          const updatedProdutos= [...produtos, newProduto]
-          setProdutos(updatedProdutos);
-          setNomeProduto('');
-          setQuantidade('');
-          setPreco('');
-          console.log(updatedProdutos)
-        } else {
-          alert('Preencha todos os campos');
-        }
-      };
-      
+     
+    
+    const db = getFirestore(app)
+    const produtoCollection = collection(db, 'produto')
+ 
+    async function createOne(){
+        await addDoc(produtoCollection, {
+        Codigo_Produto: codigoProd,
+        NomeProduto: nomeProduto,
+        preço: preco,
+        quantidade: quantidade,
+        }).then(()=>{
+        alert('Produto cadastrado com sucesso!')
+        }).catch((error)=>{
+        console.log('Erro ao cadastrar o produto: ', error)
+        })
+    }
         // Função para renderizar cada item da lista
 
   return (
@@ -66,7 +70,7 @@ export const FormProduto = ( {navigation }) => {
         />
   
         {/* Botão para adicionar o produto */}
-        <TouchableOpacity style={styles.addButton} onPress={()=> adicionarProduto}>
+        <TouchableOpacity style={styles.addButton} onPress={()=> createOne()}>
           <Text style={styles.addButtonText}>Adicionar</Text>
         </TouchableOpacity>
 

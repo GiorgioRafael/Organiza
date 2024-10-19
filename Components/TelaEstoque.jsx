@@ -4,7 +4,6 @@ import React, { useState } from 'react';
 import { Text, View, Button, StyleSheet, TextInput, FlatList, TouchableOpacity } from 'react-native';
 import FormProduto from './FormProduto';
 const TelaEstoque = ({ navigation, route }) => {
-  const { produtos } = route.params;
 
     // Função para renderizar cada item da lista
     const renderProduto = ({ item }) => (
@@ -17,34 +16,6 @@ const TelaEstoque = ({ navigation, route }) => {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Estoque  </Text>
-  
-        {/* <TextInput
-          style={styles.input}
-          placeholder="Nome do produto"
-          value={nomeProduto}
-          onChangeText={setNomeProduto}
-        />
-  
-        <TextInput
-          style={styles.input}
-          placeholder="Quantidade"
-          value={quantidade}
-          onChangeText={setQuantidade}
-          keyboardType="numeric"
-        />
-
-<TextInput
-          style={styles.input}
-          placeholder="Preço"
-          value={preco}
-          onChangeText={setPreco}
-          keyboardType="numeric"
-        />
-  
-        
-        <TouchableOpacity style={styles.addButton} onPress={adicionarProduto}>
-          <Text style={styles.addButtonText}>Novo produto</Text>
-        </TouchableOpacity> */}
 
         <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('FormProduto')}>
           <Text style={styles.addButtonText}>Novo produto</Text>
@@ -54,7 +25,7 @@ const TelaEstoque = ({ navigation, route }) => {
         {/* Lista de produtos adicionados */}
         <Text style={styles.titleH2}>Produtos</Text>
         <FlatList
-          data={produtos}
+          
           keyExtractor={(item, index) => index.toString()}
           renderItem={renderProduto}
           ListEmptyComponent={<Text style={styles.emptyText}>Nenhum produto no estoque.</Text>}
