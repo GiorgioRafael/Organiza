@@ -1,16 +1,33 @@
 import 'react-native-gesture-handler';
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Text, View, Button, StyleSheet, TextInput, FlatList, TouchableOpacity } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
 import FormProduto from './FormProduto';
+import { fetchProdutos } from './FireBaseList';
+
 const TelaEstoque = ({ navigation, route }) => {
+  const [produtos, setProdutos] = useState([]);
+
+  // utilizacao do usefocuseffect para carregar os produtos toda vez que a tela é exibida
+  useFocusEffect( 
+    useCallback(() => {
+      const getProdutos = async () => {
+        const produtosList = await fetchProdutos();
+        setProdutos(produtosList);
+      };
+
+      getProdutos();
+    }, [])
+  );
 
     // Função para renderizar cada item da lista
     const renderProduto = ({ item }) => (
       <View style={styles.itemContainer}>
-        <Text style={styles.itemText}>{item.nome}</Text>
-        <Text style={styles.itemText}>Quantidade: {item.quantidade}</Text>
-        <Text style={styles.itemText}>Preço: {item.preco}</Text>
+        <Text style={styles.itemText}>{item.Codigo_Produto}</Text>
+        <Text style={styles.itemText}>{item.NomeProduto}</Text>
+        <Text style={styles.itemText}>{item.quantidade}</Text>
+        <Text style={styles.itemText}>{item.preço}</Text>
       </View>
     );
     return (
@@ -24,9 +41,17 @@ const TelaEstoque = ({ navigation, route }) => {
   
         {/* Lista de produtos adicionados */}
         <Text style={styles.titleH2}>Produtos</Text>
+
+        <View style={styles.tableHeader}>
+        <Text style={styles.headerText}>Codigo</Text>
+        <Text style={styles.headerText}>Descrição</Text>
+        <Text style={styles.headerText}>Quantidade</Text>
+        <Text style={styles.headerText}>Preço</Text>
+      </View>
+
         <FlatList
-          
-          keyExtractor={(item, index) => index.toString()}
+          data={produtos}
+          keyExtractor={(item)=> item.id}
           renderItem={renderProduto}
           ListEmptyComponent={<Text style={styles.emptyText}>Nenhum produto no estoque.</Text>}
           style={styles.list}
@@ -44,13 +69,22 @@ const TelaEstoque = ({ navigation, route }) => {
       justifyContent: 'center',
       alignItems: 'center',
       backgroundColor: '#f8f8f8',
-      padding: 20,
+      padding: 15,
     },
     title: {
       paddingTop: 20,
       fontSize: 24,
       fontWeight: 'bold',
       marginBottom: 20,
+    },
+    tableHeader: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      paddingHorizontal: 10,
+      paddingVertical: 10,
+      backgroundColor: '#ddd',
+      borderTopLeftRadius: 5,
+      borderTopRightRadius: 5,
     },
     titleH2: {
       paddingTop: 5,
@@ -86,20 +120,26 @@ const TelaEstoque = ({ navigation, route }) => {
       marginTop: 20,
     },
     itemContainer: {
-      padding: 15,
+      padding: 10,
       borderBottomColor: '#090979',
-      borderBottomWidth: 1.5,
+      borderBottomWidth: 1,
       borderRadius: 5,
       flexDirection: 'row',
       justifyContent: 'space-between',
     },
     itemText: {
-      fontSize: 16,
+      fontSize: 12,
     },
     emptyText: {
       textAlign: 'center',
       marginTop: 20,
       color: '#666',
+    },
+    headerText: {
+      fontSize: 12,
+      fontWeight: 'bold',
+      flex: 1,
+      textAlign: 'center',
     },
   });
 

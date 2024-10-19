@@ -3,7 +3,7 @@ import { Text, View, Button, StyleSheet, TextInput, FlatList, TouchableOpacity }
 import Routes from '../routes/index.routes';
 import { app } from '../config';
 import { addDoc, getFirestore, collection } from 'firebase/firestore';
-
+import { createOne } from './FireBaseAdd'
 
 export const FormProduto = ( {navigation }) => {
     const [codigoProd, setCodigoProd] = useState('');
@@ -15,18 +15,28 @@ export const FormProduto = ( {navigation }) => {
     const db = getFirestore(app)
     const produtoCollection = collection(db, 'produto')
  
-    async function createOne(){
-        await addDoc(produtoCollection, {
-        Codigo_Produto: codigoProd,
-        NomeProduto: nomeProduto,
-        preço: preco,
-        quantidade: quantidade,
-        }).then(()=>{
-        alert('Produto cadastrado com sucesso!')
-        }).catch((error)=>{
-        console.log('Erro ao cadastrar o produto: ', error)
-        })
-    }
+    handleAddProduto = async () => {
+      if (codigoProd && nomeProduto && quantidade && preco) {
+        let produto = {
+          Codigo_Produto: codigoProd,
+          NomeProduto: nomeProduto,
+          preço: parseFloat(preco),
+          quantidade: parseInt(quantidade),
+        }
+        try {
+          await createOne(produto);
+          alert('Produto cadastrado com sucesso!');
+          setCodigoProd('');
+          setNomeProduto('');
+          setQuantidade('');
+          setPreco('');
+        } catch (error) {
+          console.log('Erro ao cadastrar o produto: ', error);
+        }} else {
+          alert('Preencha todos os campos!');
+        }
+      }
+    
         // Função para renderizar cada item da lista
 
   return (
@@ -70,7 +80,7 @@ export const FormProduto = ( {navigation }) => {
         />
   
         {/* Botão para adicionar o produto */}
-        <TouchableOpacity style={styles.addButton} onPress={()=> createOne()}>
+        <TouchableOpacity style={styles.addButton} onPress={handleAddProduto}>
           <Text style={styles.addButtonText}>Adicionar</Text>
         </TouchableOpacity>
 

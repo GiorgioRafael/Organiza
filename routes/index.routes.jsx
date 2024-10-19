@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { StyleSheet, Text, View } from 'react-native'
 import FormProduto from '../Components/FormProduto'
 import LoginScreen from '../Components/LoginScreen'
 import TelaEstoque from '../Components/TelaEstoque'
