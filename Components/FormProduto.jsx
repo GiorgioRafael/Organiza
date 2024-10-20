@@ -5,13 +5,14 @@ import { app } from '../config';
 import { addDoc, getFirestore, collection } from 'firebase/firestore';
 import { createOne } from './FireBaseAdd'
 
+
+  
 export const FormProduto = ( {navigation }) => {
     const [codigoProd, setCodigoProd] = useState('');
     const [nomeProduto, setNomeProduto] = useState('');
     const [quantidade, setQuantidade] = useState('');
     const [preco, setPreco] = useState('');
-     
-    
+
     const db = getFirestore(app)
     const produtoCollection = collection(db, 'produto')
  
