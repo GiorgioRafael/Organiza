@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native'; 
 import { LinearGradient } from 'expo-linear-gradient';
-
+import { createEmpresaInfo } from './FireBaseAdd';
 
 
 const EmpresaLogin = ({ navigation }) => {
@@ -34,16 +34,29 @@ const EmpresaLogin = ({ navigation }) => {
       return { valid: true };
     };
   
-    const handleContinuar = () => {
+    const handleContinuar = async () => {
       // logica verificacao de login abaixo
       const validation = validateInputs();
     if (!validation.valid) {
       Alert.alert(validation.message);
       return;
       //verifica se todos os campos estão preenchidos
+    } else if(validation.valid){
+      const empresaInfo = {
+      empresaNome: empresaNome,
+      empresaEmail: email,
+      empresaGestor: nome,
+      empresaSenha: password,
+    }
+    try {
+      await createEmpresaInfo(empresaInfo, navigation)
+  
+    } catch (error) {
+      console.log('Erro ao cadastrar a empresa: ', error);
+    }
     }
     //adicao dos dados na database
-    console.log("todos os inputs sao validos \n empresa:", empresaNome, "\n email:", email, "\n nome:", nome, "\n senha:", password);
+
     };
   
     const handleTelaInicial = () => {
