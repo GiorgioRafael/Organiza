@@ -49,6 +49,7 @@ export const FormProduto = ( {navigation }) => {
         
           style={styles.input}
           placeholder="ex.: 7898357417892" 
+          placeholderTextColor="#c0c0c0"
           value={codigoProd}
           onChangeText={(codigoProd)=> setCodigoProd(codigoProd)}
           keyboardType = 'numeric'
@@ -57,6 +58,7 @@ export const FormProduto = ( {navigation }) => {
         <TextInput
           style={styles.input}
           placeholder="Descrição do produto"
+          placeholderTextColor="#c0c0c0"
           value={nomeProduto}
           onChangeText={(nomeProduto)=> setNomeProduto(nomeProduto)}
         />
@@ -66,6 +68,7 @@ export const FormProduto = ( {navigation }) => {
         <TextInput
           style={styles.input}
           placeholder="Unidades disponíveis"
+          placeholderTextColor="#c0c0c0"
           value={quantidade}
           onChangeText={(quantidade)=> setQuantidade(quantidade)}
           keyboardType="numeric"
@@ -74,6 +77,7 @@ export const FormProduto = ( {navigation }) => {
         <TextInput
           style={styles.input}
           placeholder="Preço do produto em R$"
+          placeholderTextColor="#c0c0c0"
           value={preco}
           onChangeText={setPreco}
           keyboardType="numeric"
