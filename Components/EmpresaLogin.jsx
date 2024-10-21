@@ -2,15 +2,21 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native'; 
 import { LinearGradient } from 'expo-linear-gradient';
 import { createEmpresaInfo } from './FireBaseAdd';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import { FIREBASE_AUTH } from '../config';
 
 
 const EmpresaLogin = ({ navigation }) => {
   //use state das variaveis utilizadas
+    const auth = FIREBASE_AUTH;
+
     const [empresaNome, setEmpresa] = useState('');
     const [email, setEmail] = useState('');
     const [nome, setNome] = useState('');
     const [password, setPassword] = useState('');
     const [passwordVerify, setPasswordVerify] = useState('');
+    const [buttonNext, setButtonNext] = useState('Continuar')
+    const [loading, setLoading] = useState(false);
 
     const isEmpty = (str) => !str || 0 === str.length;
 
@@ -34,11 +40,26 @@ const EmpresaLogin = ({ navigation }) => {
       return { valid: true };
     };
   
+    const signUp = async () => {
+      setLoading(true);
+      try {
+        const response = await createUserWithEmailAndPassword(auth, email, password);
+        console.log(response)
+        alert('Verifique seu email')
+      } catch (error) {
+        console.log(error)
+        alert('Login fracassou: ' + error.message)
+      }
+    }
+
+
     const handleContinuar = async () => {
       // logica verificacao de login abaixo
+      setButtonNext('Carregando...')
       const validation = validateInputs();
     if (!validation.valid) {
       Alert.alert(validation.message);
+      setButtonNext('Continuar')
       return;
       //verifica se todos os campos estão preenchidos
     } else if(validation.valid){
@@ -49,10 +70,16 @@ const EmpresaLogin = ({ navigation }) => {
       empresaSenha: password,
     }
     try {
-      await createEmpresaInfo(empresaInfo, navigation)
-  
+      const response = await createUserWithEmailAndPassword(auth, email, password);
+      createEmpresaInfo(empresaInfo, navigation)  
+      //console.log(response)
+        Alert.alert('Cadastrado com sucesso')
+        setButtonNext('Continuar')
+
     } catch (error) {
-      console.log('Erro ao cadastrar a empresa: ', error);
+      Alert.alert('Erro ao cadastrar a empresa: '+ error);
+      setButtonNext('Continuar')
+
     }
     }
     //adicao dos dados na database
@@ -122,7 +149,7 @@ const EmpresaLogin = ({ navigation }) => {
         <TouchableOpacity 
         style={styles.submitButton} 
         onPress={handleContinuar}>
-          <Text style={styles.submitButtonText}>Continuar</Text>
+          <Text style={styles.submitButtonText}>{buttonNext}</Text>
         </TouchableOpacity>
         
         <View style={styles.buttonRow}>

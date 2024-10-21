@@ -3,22 +3,21 @@ import 'react-native-gesture-handler';
 import React, { useState, useCallback } from 'react';
 import { Text, View, Button, StyleSheet, TextInput, FlatList, TouchableOpacity } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-import FormProduto from './FormProduto';
 import { fetchProdutos } from './FireBaseList';
 
 const TelaEstoque = ({ navigation, route }) => {
   const [produtos, setProdutos] = useState([]);
-
+  const { userId } = route.params;
   // utilizacao do usefocuseffect para carregar os produtos toda vez que a tela é exibida
   useFocusEffect( 
     useCallback(() => {
       const getProdutos = async () => {
-        const produtosList = await fetchProdutos();
+        const produtosList = await fetchProdutos(userId);
         setProdutos(produtosList);
       };
 
       getProdutos();
-    }, [])
+    }, [userId])
   );
 
     // Função para renderizar cada item da lista
@@ -32,7 +31,7 @@ const TelaEstoque = ({ navigation, route }) => {
     );
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Estoque  </Text>
+        <Text style={styles.title}>Estoque</Text>
 
         <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('FormProduto')}>
           <Text style={styles.addButtonText}>Novo produto</Text>

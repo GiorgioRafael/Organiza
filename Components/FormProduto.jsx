@@ -4,7 +4,7 @@ import Routes from '../routes/index.routes';
 import { app } from '../config';
 import { addDoc, getFirestore, collection } from 'firebase/firestore';
 import { createOne } from './FireBaseAdd'
-
+import { FIREBASE_AUTH } from '../config';
 
   
 export const FormProduto = ( {navigation }) => {
@@ -13,30 +13,40 @@ export const FormProduto = ( {navigation }) => {
     const [quantidade, setQuantidade] = useState('');
     const [preco, setPreco] = useState('');
 
+
     const db = getFirestore(app)
-    const produtoCollection = collection(db, 'produto')
- 
-    handleAddProduto = async () => {
+
+    
+    const handleAddProduto = async () => {
       if (codigoProd && nomeProduto && quantidade && preco) {
-        let produto = {
-          Codigo_Produto: codigoProd,
-          NomeProduto: nomeProduto,
-          preço: parseFloat(preco),
-          quantidade: parseInt(quantidade),
-        }
-        try {
-          await createOne(produto);
-          alert('Produto cadastrado com sucesso!');
-          setCodigoProd('');
-          setNomeProduto('');
-          setQuantidade('');
-          setPreco('');
-        } catch (error) {
-          console.log('Erro ao cadastrar o produto: ', error);
-        }} else {
-          alert('Preencha todos os campos!');
-        }
+          let produto = {
+              Codigo_Produto: codigoProd,
+              NomeProduto: nomeProduto,
+              preço: parseFloat(preco),
+              quantidade: parseInt(quantidade),
+          };
+          try {
+              const user = FIREBASE_AUTH.currentUser;
+              if (!user) {
+                  throw new Error('Usuário não autenticado');
+              }
+              const userId = user.uid;
+              console.log('userId:', userId);
+              console.log('produto:', produto);
+              await createOne(userId, produto);
+              Alert.alert('Produto cadastrado com sucesso!');
+              setCodigoProd('');
+              setNomeProduto('');
+              setQuantidade('');
+              setPreco('');
+          } catch (error) {
+              console.log('Erro ao cadastrar o produto: ', error);
+              Alert.alert('Erro ao cadastrar o produto', error.message);
+          }
+      } else {
+          Alert.alert('Por favor, preencha todos os campos.');
       }
+  };
     
         // Função para renderizar cada item da lista
 

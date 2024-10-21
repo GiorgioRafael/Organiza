@@ -1,53 +1,51 @@
-import React from 'react'
-
-import FormProduto from '../Components/FormProduto'
-import LoginScreen from '../Components/LoginScreen'
-import TelaEstoque from '../Components/TelaEstoque'
+import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { useState } from 'react';
-import FuncionarioLogin from '../Components/FuncionarioLogin'
-import EmpresaLogin from '../Components/EmpresaLogin'
-
+import { View, Text } from 'react-native';
+import { FIREBASE_AUTH } from '../config';
+import FormProduto from '../Components/FormProduto';
+import LoginScreen from '../Components/LoginScreen';
+import TelaEstoque from '../Components/TelaEstoque';
+import FuncionarioLogin from '../Components/FuncionarioLogin';
+import EmpresaLogin from '../Components/EmpresaLogin';
 
 const Stack = createStackNavigator();
 
-
 const Routes = () => {
-    const [produtos, setProdutos] = useState([])
-    return (
-      <NavigationContainer>
-        <Stack.Navigator initialRouteName="LoginScreen" component={LoginScreen} screenOptions={{headerShown: false}}>
-         <Stack.Screen
-         name="LoginScreen"
-         component={LoginScreen}
-         />
+  const [userId, setUserId] = useState(null);
+  
+  useEffect(() => {
+    const unsubscribe = FIREBASE_AUTH.onAuthStateChanged(user => {
+      if (user) {
+        setUserId(user.uid);
+      } else {
+        setUserId(null);
+      }
+    });
 
-          <Stack.Screen
+    return () => unsubscribe();
+  }, []);
+
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName={userId ? "TelaEstoque" : "LoginScreen"} screenOptions={{ headerShown: false }}>
+        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+        <Stack.Screen
           name="FormProduto"
           component={FormProduto}
-          initialParams={{produtos, setProdutos}}
-          />
-
-          <Stack.Screen
-        name="TelaEstoque"
-        component={TelaEstoque}
-        initialParams={{produtos}}
-        options={{ title: 'Tela de Estoque' }}
+          initialParams={{ userId }}
         />
-
         <Stack.Screen
-         name="FuncionarioLogin"
-         component={FuncionarioLogin}
+          name="TelaEstoque"
+          component={TelaEstoque}
+          initialParams={{ userId }}
+          options={{ title: 'Tela de Estoque' }}
         />
-
-        <Stack.Screen
-         name="EmpresaLogin"
-         component={EmpresaLogin}
-        />
+        <Stack.Screen name="FuncionarioLogin" component={FuncionarioLogin} />
+        <Stack.Screen name="EmpresaLogin" component={EmpresaLogin} />
       </Stack.Navigator>
     </NavigationContainer>
-    )
-}
+  );
+};
 
 export default Routes;
