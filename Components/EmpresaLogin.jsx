@@ -20,7 +20,7 @@ const EmpresaLogin = ({ navigation }) => {
 
     const isEmpty = (str) => !str || 0 === str.length;
 
-    const isValidEmail = (email) => {
+      const isValidEmail = (email) => {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       return emailRegex.test(email);
     };
@@ -29,7 +29,7 @@ const EmpresaLogin = ({ navigation }) => {
         return { valid: false, message: "Preencha todos os campos" };
       }
       if (!isValidEmail(email)) {
-        return { valid: false, message: "Email inválido" };
+        return { valid: false, message: "Digite um email válido" };
       }
       if (password.length < 6) {
         return { valid: false, message: "A senha deve ter no mínimo 6 caracteres" };
@@ -39,16 +39,6 @@ const EmpresaLogin = ({ navigation }) => {
       }
       return { valid: true };
     };
-  
-    const signUp = async () => {
-      setLoading(true);
-      try {
-        const response = await createUserWithEmailAndPassword(auth, email, password);
-      } catch (error) {
-        console.log(error)
-        Alert.alert('Login fracassou: ' + error.message)
-      }
-    }
 
 
     const handleContinuar = async () => {
@@ -77,16 +67,14 @@ const EmpresaLogin = ({ navigation }) => {
       Alert.alert('Erro ao cadastrar a empresa: '+ error);
       console.log(error)
       setButtonNext('Continuar')
-
     }
-    }
+  }
     //adicao dos dados na database
 
     };
   
     const handleTelaInicial = () => {
       navigation.navigate('LoginScreen');
-
     };
   
     const handleFuncionario = () => {
@@ -136,8 +124,7 @@ const EmpresaLogin = ({ navigation }) => {
           secureTextEntry
         />
         <Text style={styles.formInput}>Repita sua senha</Text>
-        <TextInput
-          style={styles.input}
+        <TextInput style={styles.input}
           placeholder="Digite novamente sua senha"
           value={passwordVerify}
           onChangeText={(passwordVerify)=> setPasswordVerify(passwordVerify)}
@@ -159,9 +146,6 @@ const EmpresaLogin = ({ navigation }) => {
             <Text style={styles.optionButtonText}>Tela inicial</Text>
           </TouchableOpacity>
         </View>
-        
-  
-      
       </View>
     );
   }

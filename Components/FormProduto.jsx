@@ -1,10 +1,8 @@
 import React, { useState } from 'react';
-import { Text, View, Button, StyleSheet, TextInput, FlatList, TouchableOpacity } from 'react-native';
+import { Text, View, Button, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
 import { app } from '../config';
 import { getFirestore } from 'firebase/firestore';
 import { createOne } from './FireBaseAdd'
-import { FIREBASE_AUTH } from '../config';
-
   
 export const FormProduto = ( {navigation, route }) => {
     const [codigoProd, setCodigoProd] = useState('');
@@ -25,8 +23,6 @@ export const FormProduto = ( {navigation, route }) => {
           quantidade: parseInt(quantidade),
         };
         try {
-          console.log('userId:', userId);
-          console.log('produto:', produto);
           await createOne(userId, produto);
           Alert.alert('Produto cadastrado com sucesso!');
           setCodigoProd('');
@@ -34,7 +30,6 @@ export const FormProduto = ( {navigation, route }) => {
           setQuantidade('');
           setPreco('');
         } catch (error) {
-          console.log('Erro ao cadastrar o produto: ', error);
           Alert.alert('Erro ao cadastrar o produto', error.message);
         }
       } else {
@@ -42,7 +37,7 @@ export const FormProduto = ( {navigation, route }) => {
       }
     };
     
-        // Função para renderizar cada item da lista
+  // Função para renderizar cada item da lista
 
   return (
 <View style={styles.container}>

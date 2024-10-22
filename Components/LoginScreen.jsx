@@ -11,55 +11,59 @@ const LoginScreen = ({ navigation }) => {
   
     const auth = FIREBASE_AUTH;
 
-      // logica verificacao de login abaix
+    const isEmpty = (str) => !str || 0 === str.length;
+
+    const isValidEmail = (email) => {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return emailRegex.test(email);
+    };
+
+    const validateInputs = () => {
+      if (isEmpty(email) || isEmpty(password)) {
+        return { valid: false, message: "Preencha todos os campos" };
+      }
+      if (!isValidEmail(email)) {
+        return { valid: false, message: "Digite um email válido" };
+      }
+      if (password.length < 6) {
+        return { valid: false, message: "A senha deve ter no mínimo 6 caracteres" };
+      } return { valid: true };
+    };
+
+
+     //Handles dos botões ==================================================
+     // SignIn - Função para logar com email e senha
       const signIn = async () => {
-        try {
-          const response = await signInWithEmailAndPassword(auth, email, password);
-          console.log(response)
-          Alert.alert('Sucesso', "Login Efetuado com sucesso!", [{
-            text: "Continuar",
-            onPress: () => navigation.navigate('TelaEstoque') }]); 
-        } catch (error) {
+        const validation = validateInputs();
+        if (!validation.valid) {
+          Alert.alert(validation.message);
+          return;
+         
+        }  else if (validation.valid) {
+          try {
+            const response = await signInWithEmailAndPassword(auth, email, password);
+            console.log(response)
+            Alert.alert('Sucesso', "Login Efetuado com sucesso!", [{
+              text: "Continuar",
+              onPress: () => navigation.navigate('TelaEstoque') }]); 
+          
+        }catch (error) {
           console.log(error)
           Alert.alert('Login fracassou: ' + error.message)
         }
-      }
-
-      // Funcao de cadastro de usuario
-      // const signUp = async () => {
-      //   try {
-      //     const response = await createUserWithEmailAndPassword(auth, email, password);
-      //     console.log(response)
-      //     alert('Verifique seu email')
-      //   } catch (error) {
-      //     console.log(error)
-      //     alert('Login fracassou: ' + error.message)
-      //   } finally {
-      //   }
-      // }
-
-      //se o usuario existir na database:
-      //navigation.navigate('TelaEstoque');
- 
+      } 
+    }
   
-  
+//Handles dos botões, simples para redirecionar para a tela correta.
     const handleFuncionario = () => {
-      // logica verificacao de login abaixo
-
-
-      //se o usuario existir na database:
       navigation.navigate('FuncionarioLogin'); //ir para tela estoque
- 
     };
+
     const handleEmpresa = () => {
-      // logica verificacao de login abaixo
-
-
-      //se o usuario existir na database:
       navigation.navigate('EmpresaLogin'); //ir para tela estoque
- 
     };
-  
+
+  //Corpo do app ==================================================
     const title = '{Organiza}'
     return (
       <View style={styles.container}>
@@ -111,18 +115,12 @@ const LoginScreen = ({ navigation }) => {
             <Text style={styles.needHelp}>Esqueci a senha</Text>
           </TouchableOpacity>
           </View>
-          {/* { loading ? (
-          <ActivityIndicator size='large' color='#0000ff'/>
-          ) : (
-          <>
-          <Button title="Login" onPress={()=> signIn} />
-          <Button title="Criar conta" onPress={()=> signUp} />
-          </>
-          )} */}
       </View>
     )
   }
 
+
+  //Estilos ==================================================
   const styles = StyleSheet.create({
     container: {
       flex: 1,

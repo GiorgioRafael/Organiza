@@ -28,8 +28,8 @@ export async function createEmpresaInfo(empresaInfo, navigation) {
         empresaInfo
       })
   
-      Alert.alert('Cadastrado com sucesso!', "Empresa cadastrada com sucesso!", [{
-        text: "OK",
+      Alert.alert('Empresa cadastrada com sucesso!', "Continue para fazer o login", [{
+        text: "Continuar",
         onPress: () => navigation.navigate('LoginScreen') }]);   
     } catch (error) {
       console.log('Erro ao cadastrar as informações da empresa: ', error);
