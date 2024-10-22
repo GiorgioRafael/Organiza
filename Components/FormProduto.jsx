@@ -1,52 +1,46 @@
 import React, { useState } from 'react';
 import { Text, View, Button, StyleSheet, TextInput, FlatList, TouchableOpacity } from 'react-native';
-import Routes from '../routes/index.routes';
 import { app } from '../config';
-import { addDoc, getFirestore, collection } from 'firebase/firestore';
+import { getFirestore } from 'firebase/firestore';
 import { createOne } from './FireBaseAdd'
 import { FIREBASE_AUTH } from '../config';
 
   
-export const FormProduto = ( {navigation }) => {
+export const FormProduto = ( {navigation, route }) => {
     const [codigoProd, setCodigoProd] = useState('');
     const [nomeProduto, setNomeProduto] = useState('');
     const [quantidade, setQuantidade] = useState('');
     const [preco, setPreco] = useState('');
-
+    const { userId } = route.params;
 
     const db = getFirestore(app)
 
     
     const handleAddProduto = async () => {
       if (codigoProd && nomeProduto && quantidade && preco) {
-          let produto = {
-              Codigo_Produto: codigoProd,
-              NomeProduto: nomeProduto,
-              preço: parseFloat(preco),
-              quantidade: parseInt(quantidade),
-          };
-          try {
-              const user = FIREBASE_AUTH.currentUser;
-              if (!user) {
-                  throw new Error('Usuário não autenticado');
-              }
-              const userId = user.uid;
-              console.log('userId:', userId);
-              console.log('produto:', produto);
-              await createOne(userId, produto);
-              Alert.alert('Produto cadastrado com sucesso!');
-              setCodigoProd('');
-              setNomeProduto('');
-              setQuantidade('');
-              setPreco('');
-          } catch (error) {
-              console.log('Erro ao cadastrar o produto: ', error);
-              Alert.alert('Erro ao cadastrar o produto', error.message);
-          }
+        let produto = {
+          Codigo_Produto: codigoProd,
+          NomeProduto: nomeProduto,
+          preço: parseFloat(preco),
+          quantidade: parseInt(quantidade),
+        };
+        try {
+          console.log('userId:', userId);
+          console.log('produto:', produto);
+          await createOne(userId, produto);
+          Alert.alert('Produto cadastrado com sucesso!');
+          setCodigoProd('');
+          setNomeProduto('');
+          setQuantidade('');
+          setPreco('');
+        } catch (error) {
+          console.log('Erro ao cadastrar o produto: ', error);
+          Alert.alert('Erro ao cadastrar o produto', error.message);
+        }
       } else {
-          Alert.alert('Por favor, preencha todos os campos.');
+        Alert.alert('Por favor, preencha todos os campos.');
       }
-  };
+    };
     
         // Função para renderizar cada item da lista
 

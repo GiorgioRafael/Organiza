@@ -32,10 +32,15 @@ const TelaEstoque = ({ navigation, route }) => {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Estoque</Text>
-
-        <TouchableOpacity style={styles.addButton} onPress={() => navigation.navigate('FormProduto')}>
-          <Text style={styles.addButtonText}>Novo produto</Text>
-        </TouchableOpacity>
+        <View style={styles.buttonRow}>
+          <TouchableOpacity style={styles.optionButton} onPress={() => navigation.navigate('FormProduto')}>
+            <Text style={styles.optionButtonText}>Novo Produto</Text>
+          </TouchableOpacity>
+          
+          <TouchableOpacity style={styles.optionButton}>
+            <Text style={styles.optionButtonText}>Registrar saída</Text>
+          </TouchableOpacity>
+        </View>
 
   
         {/* Lista de produtos adicionados */}
@@ -126,6 +131,11 @@ const TelaEstoque = ({ navigation, route }) => {
       flexDirection: 'row',
       justifyContent: 'space-between',
     },
+    optionButtonText: {
+      color: '#fff',
+      fontSize: 14,
+      textAlign: 'center',
+    },
     itemText: {
       fontSize: 12,
     },
@@ -139,6 +149,25 @@ const TelaEstoque = ({ navigation, route }) => {
       fontWeight: 'bold',
       flex: 1,
       textAlign: 'center',
+    },
+    optionButton: {
+      backgroundColor: '#007aff',
+      paddingHorizontal: 10,
+      paddingVertical: 12,
+      borderRadius: 5,
+      flex: 1,
+      marginHorizontal: 5,
+    },
+    buttonRow: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '100%',
+    },
+    buttonRowHelp: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      width: '100%',
+      padding: 10,
     },
   });
 

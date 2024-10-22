@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
-import { View, Text } from 'react-native';
 import { FIREBASE_AUTH } from '../config';
 import FormProduto from '../Components/FormProduto';
 import LoginScreen from '../Components/LoginScreen';

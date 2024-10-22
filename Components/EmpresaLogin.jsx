@@ -44,11 +44,9 @@ const EmpresaLogin = ({ navigation }) => {
       setLoading(true);
       try {
         const response = await createUserWithEmailAndPassword(auth, email, password);
-        console.log(response)
-        alert('Verifique seu email')
       } catch (error) {
         console.log(error)
-        alert('Login fracassou: ' + error.message)
+        Alert.alert('Login fracassou: ' + error.message)
       }
     }
 
@@ -73,11 +71,11 @@ const EmpresaLogin = ({ navigation }) => {
       const response = await createUserWithEmailAndPassword(auth, email, password);
       createEmpresaInfo(empresaInfo, navigation)  
       //console.log(response)
-        Alert.alert('Cadastrado com sucesso')
-        setButtonNext('Continuar')
+      console.log('cadastrado com sucesso')
 
     } catch (error) {
       Alert.alert('Erro ao cadastrar a empresa: '+ error);
+      console.log(error)
       setButtonNext('Continuar')
 
     }

@@ -21,8 +21,7 @@ const LoginScreen = ({ navigation }) => {
             onPress: () => navigation.navigate('TelaEstoque') }]); 
         } catch (error) {
           console.log(error)
-          alert('Login fracassou: ' + error.message)
-        } finally {
+          Alert.alert('Login fracassou: ' + error.message)
         }
       }
 
