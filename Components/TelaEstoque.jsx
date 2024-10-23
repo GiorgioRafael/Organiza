@@ -1,13 +1,14 @@
 import 'react-native-gesture-handler';
 
 import React, { useState, useCallback } from 'react';
-import { Text, View, Button, StyleSheet, TextInput, FlatList, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, TextInput, FlatList, TouchableOpacity } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
 import { fetchProdutos } from './FireBaseList';
 
 const TelaEstoque = ({ navigation, route }) => {
   const [produtos, setProdutos] = useState([]);
   const { userId } = route.params;
+  const [searchQuery, setSearchQuery] = useState('');
   // utilizacao do usefocuseffect para carregar os produtos toda vez que a tela é exibida
   useFocusEffect( 
     useCallback(() => {
@@ -18,6 +19,11 @@ const TelaEstoque = ({ navigation, route }) => {
 
       getProdutos();
     }, [userId])
+  );
+
+  const filteredProdutos = produtos.filter(produto => 
+    produto.Codigo_Produto.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    produto.NomeProduto.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
     // Função para renderizar cada item da lista
@@ -44,6 +50,16 @@ const TelaEstoque = ({ navigation, route }) => {
 
   
         {/* Lista de produtos adicionados */}
+
+        <View>
+        <TextInput
+          style={styles.input}
+          placeholder="Buscar por código ou nome do produto"
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
+</View>
+
         <Text style={styles.titleH2}>Produtos</Text>
 
         <View style={styles.tableHeader}>
@@ -54,7 +70,7 @@ const TelaEstoque = ({ navigation, route }) => {
       </View>
 
         <FlatList
-          data={produtos}
+          data={filteredProdutos}
           keyExtractor={(item)=> item.id}
           renderItem={renderProduto}
           ListEmptyComponent={<Text style={styles.emptyText}>Nenhum produto no estoque.</Text>}
@@ -169,6 +185,24 @@ const TelaEstoque = ({ navigation, route }) => {
       width: '100%',
       padding: 10,
     },
+    container: {
+      flex: 1,
+      backgroundImage : 'linear-gradient(45deg, #3c1779, #0073c5)',
+      alignItems: 'center',
+      justifyContent: 'center',
+      padding: 20,
+    },
+    input: {
+    width: '100%',
+    height: 50,
+    borderWidth: 1,
+    borderColor: '#ddd',
+    borderRadius: 5,
+    paddingHorizontal: 15,
+    margin: 10,
+    fontSize: 16,
+    backgroundColor: '#fff',
+  },
   });
 
   

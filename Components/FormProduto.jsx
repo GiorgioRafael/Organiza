@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Text, View, Button, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
+import { Text, View, Button, StyleSheet, TextInput, TouchableOpacity, Alert } from 'react-native';
 import { app } from '../config';
 import { getFirestore } from 'firebase/firestore';
 import { createOne } from './FireBaseAdd'
