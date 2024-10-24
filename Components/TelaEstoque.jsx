@@ -33,9 +33,17 @@ const TelaEstoque = ({ navigation, route }) => {
         <Text style={styles.itemText}>{item.NomeProduto}</Text>
         <Text style={styles.itemText}>{item.quantidade}</Text>
         <Text style={styles.itemText}>{item.preço}</Text>
+        <TouchableOpacity 
+          style={styles.detailsButton} 
+          onPress={() => navigation.navigate('DetalhesProduto', { produto: item })}
+    >
+      <Text style={styles.detailsButtonText}>Ver Detalhes</Text>
+    </TouchableOpacity>
+
       </View>
     );
     return (
+      
       <View style={styles.container}>
         <Text style={styles.title}>Estoque</Text>
         <View style={styles.buttonRow}>
@@ -46,12 +54,15 @@ const TelaEstoque = ({ navigation, route }) => {
           <TouchableOpacity style={styles.optionButton}>
             <Text style={styles.optionButtonText}>Registrar saída</Text>
           </TouchableOpacity>
+          <TouchableOpacity style={styles.optionButton} onPress={() => navigation.navigate('TelaFuncionarios')}>
+            <Text style={styles.optionButtonText}>Gerir funcionario</Text>
+          </TouchableOpacity>
         </View>
 
   
         {/* Lista de produtos adicionados */}
 
-        <View>
+        <View  style={styles.container}>
         <TextInput
           style={styles.input}
           placeholder="Buscar por código ou nome do produto"
@@ -185,6 +196,19 @@ const TelaEstoque = ({ navigation, route }) => {
       width: '100%',
       padding: 10,
     },
+    detailsButton: {
+      backgroundColor: '#007aff',
+      paddingHorizontal: 8,
+      paddingVertical: 6,
+      borderRadius: 5,
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginLeft: 10,
+    },
+    detailsButtonText: {
+      color: '#fff',
+      fontSize: 12,
+    },
     container: {
       flex: 1,
       backgroundImage : 'linear-gradient(45deg, #3c1779, #0073c5)',

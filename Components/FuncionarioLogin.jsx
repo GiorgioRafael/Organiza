@@ -7,12 +7,10 @@ import { LinearGradient } from 'expo-linear-gradient';
 const FuncionarioLogin = ({ navigation }) => {
     const [codigoLogin, setCodigoLogin] = useState('');
   
-    const handleSubmit = () => {
-      // logica verificacao de login abaixo
+    const handleLoginFuncionario = () => {
+      // logica para login de funcionario
+      
 
-
-      //se o usuario existir na database:
-      navigation.navigate('TelaEstoque'); //ir para tela estoque
  
     };
   
@@ -43,7 +41,7 @@ const FuncionarioLogin = ({ navigation }) => {
         
         <TouchableOpacity 
         style={styles.submitButton} 
-        onPress={handleSubmit}>
+        onPress={() =>console.log("Login funcionario pressed")}>
           <Text style={styles.submitButtonText}>Entrar</Text>
         </TouchableOpacity>
         

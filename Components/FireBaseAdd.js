@@ -5,7 +5,15 @@ import { Alert } from 'react-native';
 import { FIREBASE_AUTH } from '../config';
 const db = getFirestore(app)
 
-
+const generateCustomId = () => {
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  const charactersLength = characters.length;
+  for (let i = 0; i < 10; i++) {
+    result += characters.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return result;
+};
 export async function createOne(userId, produto) {
   try {
       const produtoCollection = collection(db, 'Empresas', userId, 'produto');
@@ -35,4 +43,14 @@ export async function createEmpresaInfo(empresaInfo, navigation) {
       console.log('Erro ao cadastrar as informações da empresa: ', error);
     }
   }
-  
+
+  export async function createFuncionario(userId, funcInfo) {
+    try {
+      const customDocId = generateCustomId(); // Generate custom document ID
+      const funcionarioDocRef = doc(db, 'Empresas', userId, 'funcionarios', customDocId);
+      await setDoc(funcionarioDocRef, funcInfo);
+      Alert.alert('Funcionario registrado com sucesso');
+    } catch (error) {
+      console.log('Erro ao cadastrar o funcionario: ', error);
+    }
+  }
