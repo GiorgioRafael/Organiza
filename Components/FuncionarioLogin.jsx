@@ -1,18 +1,52 @@
 import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native'; 
 import { LinearGradient } from 'expo-linear-gradient';
-
+import { getFirestore, collection, getDocs } from 'firebase/firestore';
+import { Alert } from 'react-native';
 
 
 const FuncionarioLogin = ({ navigation }) => {
     const [codigoLogin, setCodigoLogin] = useState('');
-  
-    const handleLoginFuncionario = () => {
-      // logica para login de funcionario
-      
+    const db = getFirestore();
 
- 
-    };
+const handleLoginFuncionario = async () => {
+    if (!codigoLogin) {
+      Alert.alert('Por favor, insira o código de login.');
+      return;
+    }
+
+    try {
+      console.log("Tentando verificar o código de login...");
+      const empresasCollection = collection(db, 'Empresas');
+      const empresasSnapshot = await getDocs(empresasCollection);
+      let funcionarioEncontrado = false;
+
+      for (const empresaDoc of empresasSnapshot.docs) {
+        const empresaId = empresaDoc.id;
+        const funcionariosCollection = collection(db, 'Empresas', empresaId, 'funcionarios');
+        const funcionariosSnapshot = await getDocs(funcionariosCollection);
+
+        for (const funcionarioDoc of funcionariosSnapshot.docs) {
+          if (funcionarioDoc.id === codigoLogin) {
+            const funcionarioData = funcionarioDoc.data();
+            funcionarioEncontrado = true;
+            Alert.alert('Login bem-sucedido!', 'Bem-vindo, ' + funcionarioData.Nome);
+            navigation.navigate('TelaEstoque', { userId: empresaId });
+            break;
+          }
+        }
+
+        if (funcionarioEncontrado) break;
+      }
+
+      if (!funcionarioEncontrado) {
+        Alert.alert('Código de login inválido.');
+      }
+    } catch (error) {
+      console.log('Erro ao verificar o código de login: ', error);
+      Alert.alert('Erro ao verificar o código de login.');
+    }
+  };
   
     const handleCompanyPress = () => {
       navigation.navigate('EmpresaLogin');
@@ -36,12 +70,11 @@ const FuncionarioLogin = ({ navigation }) => {
           placeholder="Insira o código"
           value={codigoLogin}
           onChangeText={(codigoLogin)=> setCodigoLogin(codigoLogin)}
-          secureTextEntry
         />
         
         <TouchableOpacity 
         style={styles.submitButton} 
-        onPress={() =>console.log("Login funcionario pressed")}>
+        onPress={handleLoginFuncionario}>
           <Text style={styles.submitButtonText}>Entrar</Text>
         </TouchableOpacity>
         

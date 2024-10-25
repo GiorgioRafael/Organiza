@@ -62,7 +62,7 @@ const TelaEstoque = ({ navigation, route }) => {
   
         {/* Lista de produtos adicionados */}
 
-        <View  style={styles.container}>
+        <View style={styles.searchBarView}>
         <TextInput
           style={styles.input}
           placeholder="Buscar por código ou nome do produto"
@@ -209,24 +209,10 @@ const TelaEstoque = ({ navigation, route }) => {
       color: '#fff',
       fontSize: 12,
     },
-    container: {
-      flex: 1,
-      backgroundImage : 'linear-gradient(45deg, #3c1779, #0073c5)',
-      alignItems: 'center',
-      justifyContent: 'center',
-      padding: 20,
-    },
-    input: {
-    width: '100%',
-    height: 50,
-    borderWidth: 1,
-    borderColor: '#ddd',
-    borderRadius: 5,
-    paddingHorizontal: 15,
-    margin: 10,
-    fontSize: 16,
-    backgroundColor: '#fff',
+  searchBarView :{
+  marginTop: 10,
   },
+
   });
 
   
