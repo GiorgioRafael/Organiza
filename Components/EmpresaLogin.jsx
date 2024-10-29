@@ -16,7 +16,6 @@ const EmpresaLogin = ({ navigation }) => {
     const [password, setPassword] = useState('');
     const [passwordVerify, setPasswordVerify] = useState('');
     const [buttonNext, setButtonNext] = useState('Continuar')
-    const [loading, setLoading] = useState(false);
 
     const isEmpty = (str) => !str || 0 === str.length;
 
@@ -46,7 +45,9 @@ const EmpresaLogin = ({ navigation }) => {
       setButtonNext('Carregando...')
       const validation = validateInputs();
     if (!validation.valid) {
-      Alert.alert(validation.message);
+      Alert.alert("Erro", "Email ou senha inválidos", [
+        { text: "tentar novamente" },
+      ]);
       setButtonNext('Continuar')
       return;
       //verifica se todos os campos estão preenchidos

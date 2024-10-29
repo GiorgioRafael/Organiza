@@ -3,7 +3,6 @@ import { Text, View, Button, StyleSheet, TextInput, TouchableOpacity, Alert } fr
 import { app } from '../config';
 import { getFirestore } from 'firebase/firestore';
 import { createOne } from './FireBaseAdd'
-  
 export const FormProduto = ( {navigation, route }) => {
     const [codigoProd, setCodigoProd] = useState('');
     const [nomeProduto, setNomeProduto] = useState('');
@@ -13,8 +12,26 @@ export const FormProduto = ( {navigation, route }) => {
 
     const db = getFirestore(app)
 
+    const validatePreco = () => {
+      if (!preco.includes('.')) {
+        setPreco(preco + '.00');
+      } else {
+        const [integerPart, decimalPart] = preco.split('.');
+        if (decimalPart.length === 0) {
+          setPreco(preco + '00');
+        } else if (decimalPart.length === 1) {
+          setPreco(preco + '0');
+        }
+      }
+    };
+
+    const handlePrecoChange = (text) => {
+      const formattedText = text.replace(/,/g, '.');
+      setPreco(formattedText);
+    };
     
     const handleAddProduto = async () => {
+      validatePreco();
       if (codigoProd && nomeProduto && quantidade && preco) {
         let produto = {
           Codigo_Produto: codigoProd,
@@ -79,7 +96,7 @@ export const FormProduto = ( {navigation, route }) => {
           placeholder="Preço do produto em R$"
           placeholderTextColor="#c0c0c0"
           value={preco}
-          onChangeText={setPreco}
+          onChangeText={handlePrecoChange}
           keyboardType="numeric"
         />
   
