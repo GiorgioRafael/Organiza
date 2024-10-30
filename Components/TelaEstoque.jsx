@@ -71,7 +71,7 @@ const TelaEstoque = ({ navigation, route }) => {
           <Icon name="add-circle-outline" size={24} color="#fff" />
           <Text style={styles.optionButtonText}>Novo Produto</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.optionButton} onPress={() => navigation.navigate('GerirFuncionario')}>
+        <TouchableOpacity style={styles.optionButton}>
           <Icon name="exit-to-app" size={24} color="#fff" />
           <Text style={styles.optionButtonText}>Registrar saída</Text>
         </TouchableOpacity>

@@ -1,9 +1,14 @@
 import React from 'react';
-import { Text, View, Button, StyleSheet } from 'react-native';
+import { Text, View, Button, StyleSheet, TouchableOpacity} from 'react-native';
+import { getFirestore } from "firebase/firestore";
+import { app } from '../config';
+import { empresaDelete } from './FireBaseDelete';
 
+const db = getFirestore(app);
 
 const DetalhesProduto = ({ navigation, route }) => {
-  const { produto } = route.params; // Acessa o produto passado via navegação
+  const { userId, produto } = route.params; // Acessa o produto e userId passados via navegação
+
 
   return (
     <View style={styles.container}>
@@ -13,12 +18,24 @@ const DetalhesProduto = ({ navigation, route }) => {
       <Text>Quantidade: {produto.quantidade}</Text>
       <Text>Preço: {produto.preco}</Text>
 
+      <Button title='Excluir' onPress={() => { empresaDelete(userId, produto.id) }}/>
+
+
+
       <Button title="Voltar" onPress={() => navigation.goBack()} />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
+    addButton: {
+      backgroundColor: '#007AFF',
+      padding: 15,
+      borderRadius: 5,
+      marginBottom: 20,
+      width: '100%',
+      alignItems: 'center',
+  },
     container: {
       flex: 1,
       justifyContent: 'center',

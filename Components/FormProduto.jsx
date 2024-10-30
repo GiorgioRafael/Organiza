@@ -33,6 +33,7 @@ export const FormProduto = ( {navigation, route }) => {
     const handleAddProduto = async () => {
       validatePreco();
       if (codigoProd && nomeProduto && quantidade && preco) {
+        let produtoId = codigoProd; 
         let produto = {
           Codigo_Produto: codigoProd,
           NomeProduto: nomeProduto,
@@ -40,7 +41,7 @@ export const FormProduto = ( {navigation, route }) => {
           quantidade: parseInt(quantidade),
         };
         try {
-          await createOne(userId, produto);
+          await createOne(userId, produto, produtoId);
           Alert.alert('Produto cadastrado com sucesso!');
           setCodigoProd('');
           setNomeProduto('');

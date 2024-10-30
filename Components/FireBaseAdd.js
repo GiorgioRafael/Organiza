@@ -14,10 +14,10 @@ const generateCustomId = () => {
   }
   return result;
 };
-export async function createOne(userId, produto) {
+export async function createOne(userId, produto, produtoId) {
   try {
-      const produtoCollection = collection(db, 'Empresas', userId, 'produto');
-      await addDoc(produtoCollection, produto);
+      const produtoDocRef = doc(db, 'Empresas', userId, 'produto', produtoId);
+      await setDoc(produtoDocRef, produto);
       Alert.alert('Produto cadastrado com sucesso!');
   } catch (error) {
       console.log('Erro ao cadastrar o produto: ', error);
