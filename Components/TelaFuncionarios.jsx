@@ -7,6 +7,12 @@ import { createFuncionario } from './FireBaseAdd'
 export const TelaFuncionarios = ( { navigation, route }) => {
     const [funcNome, setFuncNome] = useState('');   
     const [funcDataNascimento, setFuncDataNascimento] = useState('');
+    const [funcCpf, setFuncCpf] = useState('');
+    const [funcRg, setFuncRg] = useState('');
+    const [funcContato, setFuncContato] = useState('');
+    const [funcEmail, setFuncEmail] = useState('');
+    const [funcEndereco, setFuncEndereco] = useState('');
+    const [funcGenero, setFuncGenero] = useState('');
     const { userId } = route.params;
 
     const handleAddProduto = async () => {
@@ -57,8 +63,8 @@ export const TelaFuncionarios = ( { navigation, route }) => {
           <Text style={styles.addButtonText}>Adicionar</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.addButton} onPress={()=> navigation.navigate('TelaEstoque')}>
-          <Text style={styles.addButtonText}>Voltar ao estoque</Text>
+        <TouchableOpacity style={styles.addButton} onPress={()=> navigation.navigate('GerirFuncionario')}>
+          <Text style={styles.addButtonText}>Voltar</Text>  
         </TouchableOpacity>
 </View>
   )

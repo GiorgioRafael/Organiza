@@ -9,3 +9,10 @@ export async function fetchProdutos(userId) {
   const produtoList = produtoSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
   return produtoList;
 }
+
+export async function fetchFuncionarios(userId) {
+  const funcionarioCollection = collection(db, 'Empresas', userId, 'funcionario');
+  const funcionarioSnapshot = await getDocs(funcionarioCollection);
+  const funcionarioList = funcionarioSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
+  return funcionarioList;
+}

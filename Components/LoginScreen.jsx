@@ -42,7 +42,6 @@ const LoginScreen = ({ navigation }) => {
         }  else if (validation.valid) {
           try {
             const response = await signInWithEmailAndPassword(auth, email, password);
-            console.log(response)
             Alert.alert('Sucesso', "Login Efetuado com sucesso!", [{
               text: "Continuar",
               onPress: () => navigation.navigate('TelaEstoque') }]); 

@@ -75,7 +75,7 @@ const TelaEstoque = ({ navigation, route }) => {
           <Icon name="exit-to-app" size={24} color="#fff" />
           <Text style={styles.optionButtonText}>Registrar saída</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.optionButton} onPress={() => navigation.navigate('TelaFuncionarios')}>
+        <TouchableOpacity style={styles.optionButton} onPress={() => navigation.navigate('GerirFuncionario')}>
           <Icon name="people" size={20} color="#fff" />
           <Text style={styles.optionButtonTextFunc}>Funcionários</Text>
         </TouchableOpacity>
@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   emptyText: {
-    textAlign: 'left',
+    textAlign: 'center',
     marginTop: 20,
     color: '#666',
     fontSize: 16,

@@ -41,8 +41,7 @@ export const FormProduto = ( {navigation, route }) => {
           quantidade: parseInt(quantidade),
         };
         try {
-          await createOne(userId, produto, produtoId);
-          Alert.alert('Produto cadastrado com sucesso!');
+          await createOne(userId, produto, produtoId, navigation);
           setCodigoProd('');
           setNomeProduto('');
           setQuantidade('');

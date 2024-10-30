@@ -9,6 +9,7 @@ import FuncionarioLogin from '../Components/FuncionarioLogin';
 import EmpresaLogin from '../Components/EmpresaLogin';
 import TelaFuncionarios from '../Components/TelaFuncionarios';
 import DetalhesProduto from '../Components/DetalhesProduto';
+import GerirFuncionario from '../Components/GerirFuncionario';
 
 const Stack = createStackNavigator();
 
@@ -46,6 +47,7 @@ const Routes = () => {
         <Stack.Screen name="EmpresaLogin" component={EmpresaLogin} />
         <Stack.Screen name="DetalhesProduto" component={DetalhesProduto} initialParams={{ userId }}/>
         <Stack.Screen name="TelaFuncionarios" component={TelaFuncionarios} initialParams={{ userId }} />
+        <Stack.Screen name="GerirFuncionario" component={GerirFuncionario} initialParams={{ userId }} />
 
       </Stack.Navigator>
     </NavigationContainer>

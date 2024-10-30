@@ -14,11 +14,18 @@ const generateCustomId = () => {
   }
   return result;
 };
-export async function createOne(userId, produto, produtoId) {
+export async function createOne(userId, produto, produtoId, navigation) {
   try {
       const produtoDocRef = doc(db, 'Empresas', userId, 'produto', produtoId);
       await setDoc(produtoDocRef, produto);
-      Alert.alert('Produto cadastrado com sucesso!');
+      Alert.alert('Confirmação', 'Produto cadastrado com sucesso', [
+        {
+          text: 'Voltar',
+          onPress: () => navigation.navigate('TelaEstoque'),
+        },
+        {
+          text: 'Continuar',
+        }]);
   } catch (error) {
       console.log('Erro ao cadastrar o produto: ', error);
   }

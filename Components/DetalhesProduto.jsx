@@ -18,7 +18,7 @@ const DetalhesProduto = ({ navigation, route }) => {
       <Text>Quantidade: {produto.quantidade}</Text>
       <Text>Preço: {produto.preco}</Text>
 
-      <Button title='Excluir' onPress={() => { empresaDelete(userId, produto.id) }}/>
+      <Button title='Excluir' onPress={() => { empresaDelete(userId, produto.id, navigation) }}/>
 
 
 
