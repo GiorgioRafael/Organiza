@@ -67,11 +67,11 @@ const TelaEstoque = ({ navigation, route }) => {
     <View style={styles.container}>
       <Text style={styles.title}>Estoque</Text>
       <View style={styles.buttonRow}>
-        <TouchableOpacity style={styles.optionButton} onPress={() => navigation.navigate('FormProduto')}>
+        <TouchableOpacity style={styles.optionButtonAdd} onPress={() => navigation.navigate('FormProduto')}>
           <Icon name="add-circle-outline" size={24} color="#fff" />
           <Text style={styles.optionButtonText}>Novo Produto</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.optionButton}>
+        <TouchableOpacity style={styles.optionButtonEdit}>
           <Icon name="exit-to-app" size={24} color="#fff" />
           <Text style={styles.optionButtonText}>Registrar saída</Text>
         </TouchableOpacity>
@@ -139,6 +139,28 @@ const styles = StyleSheet.create({
   },
   optionButton: {
     backgroundColor: '#007aff',
+    paddingHorizontal: 10,
+    paddingVertical: 12,
+    borderRadius: 8,
+    flex: 1,
+    marginHorizontal: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  optionButtonEdit: {
+    backgroundColor: '#ffbf00',
+    paddingHorizontal: 10,
+    paddingVertical: 12,
+    borderRadius: 8,
+    flex: 1,
+    marginHorizontal: 5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  optionButtonAdd: {
+    backgroundColor: '#32936f',
     paddingHorizontal: 10,
     paddingVertical: 12,
     borderRadius: 8,

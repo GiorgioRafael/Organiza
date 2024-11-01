@@ -5,13 +5,14 @@ import { getFirestore } from 'firebase/firestore';
 import { createFuncionario } from './FireBaseAdd'
   
 export const TelaFuncionarios = ( { navigation, route }) => {
+  // campos dos funcionarios
     const [funcNome, setFuncNome] = useState('');   
     const [funcDataNascimento, setFuncDataNascimento] = useState('');
     const [funcCpf, setFuncCpf] = useState('');
     const [funcRg, setFuncRg] = useState('');
     const [funcContato, setFuncContato] = useState('');
     const [funcEmail, setFuncEmail] = useState('');
-    const [funcEndereco, setFuncEndereco] = useState('');
+    const [funcBairro, setFuncBairro] = useState('');
     const [funcGenero, setFuncGenero] = useState('');
     const { userId } = route.params;
 
@@ -54,10 +55,50 @@ export const TelaFuncionarios = ( { navigation, route }) => {
         <Text style={styles.formInput}>Data de nascimento</Text>
         <TextInput
           style={styles.input}
-          placeholder="Descrição do produto"
+          placeholder="CPF do funcionario"
           placeholderTextColor="#c0c0c0"
-          value={funcDataNascimento}
-          onChangeText={(funcDataNascimento)=> setFuncDataNascimento(funcDataNascimento)}
+          value={funcCpf}
+          onChangeText={(funcCpf)=> setFuncCpf(funcCpf)}
+        />
+        <Text style={styles.formInput}>RG</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="RG Do Funcionario"
+          placeholderTextColor="#c0c0c0"
+          value={funcRg}
+          onChangeText={(funcRg)=> setFuncRg(funcRg)}
+        />
+        <Text style={styles.formInput}>Contato</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Contato"
+          placeholderTextColor="#c0c0c0"
+          value={funcContato}
+          onChangeText={(funcContato)=> setFuncContato(funcContato)}
+        />
+        <Text style={styles.formInput}>Email</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Email"
+          placeholderTextColor="#c0c0c0"
+          value={funcEmail}
+          onChangeText={(funcEmail)=> setFuncEmail(funcEmail)}
+        />
+        <Text style={styles.formInput}>Bairro</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Bairro"
+          placeholderTextColor="#c0c0c0"
+          value={funcBairro}
+          onChangeText={(funcBairro)=> setFuncBairro(funcBairro)}
+        />
+        <Text style={styles.formInput}>Gênero</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Genero"
+          placeholderTextColor="#c0c0c0"
+          value={funcBairro}
+          onChangeText={(funcBairro)=> setFuncBairro(funcBairro)}
         />
         <TouchableOpacity style={styles.addButton} onPress={handleAddProduto}>
           <Text style={styles.addButtonText}>Adicionar</Text>

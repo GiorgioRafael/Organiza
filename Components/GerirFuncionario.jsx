@@ -1,10 +1,13 @@
 import React, { useState, useCallback } from 'react';
 import { Text, View, StyleSheet, TextInput, FlatList, TouchableOpacity, BackHandler, Alert } from 'react-native';
 import { useFocusEffect } from '@react-navigation/native';
-
+import Icon from 'react-native-vector-icons/MaterialIcons';
 import { fetchFuncionarios } from './FireBaseList';
 
 const GerirFuncionario = ({ navigation, route }) => {
+  
+  const [searchQuery, setSearchQuery] = useState('');
+  
   const { userId } = route.params;
   const [funcionarios, setFuncionarios] = useState([]);
   useFocusEffect(
@@ -17,26 +20,31 @@ const GerirFuncionario = ({ navigation, route }) => {
       getFuncionarios();
     }, [userId])
   );
-
+  const filteredFuncionarios = funcionarios.filter(funcionario => 
+    funcionario.funcCodigo.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    funcionario.funcNome.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
 
   const renderFuncionario = ({ funcionario }) => (
     <View style={styles.itemContainer}>
       <View style={styles.itemInfo}>
-        <Text style={styles.itemCode}>{funcionario.codigo}</Text>
-        <Text style={styles.itemName}>{funcionario.nome}</Text>
+        <Text style={styles.itemCode}>{funcionario.funcCodigo}</Text>
+        <Text style={styles.itemName}>{funcionario.funcNome}</Text>
+        <Text style={styles.itemId}>{funcionario.id}</Text> {/* Adiciona o ID do funcionário */}
       </View>
       <TouchableOpacity 
         style={styles.detailsButton} 
         onPress={() => navigation.navigate('DetalhesProduto', { produto: item })}
       >
+        <Text style={styles.detailsButtonText}>Ver Detalhes</Text>
       </TouchableOpacity>
     </View>
   );
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Estoque</Text>
+      <Text style={styles.title}>Funcionarios</Text>
       <View style={styles.buttonRow}>
       <TouchableOpacity style={styles.optionButton} onPress={() => navigation.navigate('TelaEstoque')}>
           <Text style={styles.optionButtonText}>Voltar</Text>
@@ -49,7 +57,13 @@ const GerirFuncionario = ({ navigation, route }) => {
 
       </View>
 
-      {/* <View style={styles.searchBarView}>
+
+      <View style={styles.tableHeader}>
+        <Text style={styles.headerTextCodigo}>Codigo Funcionario</Text>
+        <Text style={styles.headerTextNome}>Nome Funcionario</Text>
+      </View>
+
+      <View style={styles.searchBarView}>
         <Icon name="search" size={20} color="#999" style={styles.searchIcon} />
         <TextInput
           style={styles.input}
@@ -57,15 +71,8 @@ const GerirFuncionario = ({ navigation, route }) => {
           value={searchQuery}
           onChangeText={setSearchQuery}
         />
-        <Icon2 name="barcode" size={20} color="#999" style={styles.searchIcon} />
-
-      </View> */}
-
-
-      <View style={styles.tableHeader}>
-        <Text style={styles.headerTextCodigo}>Codigo Funcionario</Text>
-        <Text style={styles.headerTextNome}>Nome Funcionario</Text>
       </View>
+
 
       {/* <FlatList
         data={filteredProdutos}
@@ -136,7 +143,9 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   searchIcon: {
-    marginRight: 10,
+    marginRight: 25,
+    marginLeft: 10,
+
   },
   input: {
     flex: 1,
