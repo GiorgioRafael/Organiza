@@ -3,7 +3,8 @@ import { Text, View, StyleSheet, TextInput, TouchableOpacity, Alert } from 'reac
 import { app } from '../config';
 import { getFirestore } from 'firebase/firestore';
 import { createFuncionario } from './FireBaseAdd'
-  
+import { ScrollView } from 'react-native-gesture-handler';
+
 export const TelaFuncionarios = ( { navigation, route }) => {
   // campos dos funcionarios
     const [funcNome, setFuncNome] = useState('');   
@@ -21,7 +22,12 @@ export const TelaFuncionarios = ( { navigation, route }) => {
         let funcInfo = {
           Nome: funcNome,
           DataDeNascimento: funcDataNascimento,
-          
+          CPF: funcCpf,
+          RG: funcRg,
+          Contato: funcContato,
+          Email: funcEmail,
+          Bairro: funcBairro,
+          Genero: funcGenero,
         };
         try {
           await createFuncionario(userId, funcInfo);
@@ -39,6 +45,7 @@ export const TelaFuncionarios = ( { navigation, route }) => {
   // Função para renderizar cada item da lista
 
   return (
+    <ScrollView contentContainerStyle={styles.scrollContainer}>
 <View style={styles.container}>
         <Text style={styles.title}>Criacao de novo funcionario</Text>
   
@@ -53,6 +60,14 @@ export const TelaFuncionarios = ( { navigation, route }) => {
           onChangeText={(funcNome)=> setFuncNome(funcNome)}
         />
         <Text style={styles.formInput}>Data de nascimento</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="ex: 01/01/2000"
+          placeholderTextColor="#c0c0c0"
+          value={funcDataNascimento}
+          onChangeText={(funcDataNascimento)=> setFuncDataNascimento(funcDataNascimento)}
+        />
+        <Text style={styles.formInput}>CPF Do Funcionario</Text>
         <TextInput
           style={styles.input}
           placeholder="CPF do funcionario"
@@ -95,10 +110,10 @@ export const TelaFuncionarios = ( { navigation, route }) => {
         <Text style={styles.formInput}>Gênero</Text>
         <TextInput
           style={styles.input}
-          placeholder="Genero"
+          placeholder="M/F"
           placeholderTextColor="#c0c0c0"
           value={funcBairro}
-          onChangeText={(funcBairro)=> setFuncBairro(funcBairro)}
+          onChangeText={(funcGenero)=> setFuncGenero(funcGenero)}
         />
         <TouchableOpacity style={styles.addButton} onPress={handleAddProduto}>
           <Text style={styles.addButtonText}>Adicionar</Text>
@@ -108,6 +123,7 @@ export const TelaFuncionarios = ( { navigation, route }) => {
           <Text style={styles.addButtonText}>Voltar</Text>  
         </TouchableOpacity>
 </View>
+</ScrollView>
   )
 }
 

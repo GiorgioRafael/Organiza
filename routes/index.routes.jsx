@@ -12,6 +12,9 @@ import DetalhesProduto from '../Components/DetalhesProduto';
 import GerirFuncionario from '../Components/GerirFuncionario';
 
 const Stack = createStackNavigator();
+const AuthStack = createStackNavigator();
+
+
 
 const Routes = () => {
   const [userId, setUserId] = useState(null);
@@ -30,25 +33,53 @@ const Routes = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName={userId ? "TelaEstoque" : "LoginScreen"} screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="LoginScreen" component={LoginScreen} />
+      <Stack.Navigator initialRouteName={userId ? "TelaEstoque" : "LoginScreen"}>
+        <Stack.Screen 
+          name="LoginScreen" 
+          component={LoginScreen} 
+          options={{ headerShown: false }} // Hide header on LoginScreen
+        />
         <Stack.Screen
           name="FormProduto"
           component={FormProduto}
           initialParams={{ userId }}
+          options={{ title: 'Novo Produto' }}
+
         />
         <Stack.Screen
           name="TelaEstoque"
           component={TelaEstoque}
           initialParams={{ userId }}
-          options={{ title: 'Tela de Estoque' }}
+          options={{ title: 'Estoque' }}
         />
-        <Stack.Screen name="FuncionarioLogin" component={FuncionarioLogin} />
-        <Stack.Screen name="EmpresaLogin" component={EmpresaLogin} />
-        <Stack.Screen name="DetalhesProduto" component={DetalhesProduto} initialParams={{ userId }}/>
-        <Stack.Screen name="TelaFuncionarios" component={TelaFuncionarios} initialParams={{ userId }} />
-        <Stack.Screen name="GerirFuncionario" component={GerirFuncionario} initialParams={{ userId }} />
+        <Stack.Screen 
+          name="FuncionarioLogin" 
+          component={FuncionarioLogin} 
+          options={{ headerShown: false }} // Hide header on FuncionarioLogin
+        />
+        <Stack.Screen 
+          name="EmpresaLogin" 
+          component={EmpresaLogin} 
+          options={{ headerShown: false }} // Hide header on EmpresaLogin
+        />
+        <Stack.Screen 
+          name="DetalhesProduto" 
+          component={DetalhesProduto} 
+          initialParams={{ userId }}
+        />
+        <Stack.Screen 
+          name="TelaFuncionarios" 
+          component={TelaFuncionarios} 
+          initialParams={{ userId }}
+          options={{ title: 'Novo Funcionario' }}
 
+        />
+        <Stack.Screen 
+          name="GerirFuncionario" 
+          component={GerirFuncionario} 
+          initialParams={{ userId }}
+          options={{ title: 'Gestão de funcionarios' }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

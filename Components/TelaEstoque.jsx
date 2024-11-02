@@ -20,24 +20,24 @@ const TelaEstoque = ({ navigation, route }) => {
 
       getProdutos();
 
-      const backAction = () => {
+      const backAction = (e) => {
+        e.preventDefault();
         Alert.alert("Confirmação", "Você deseja sair do aplicativo?", [
           {
             text: "Cancelar",
             onPress: () => null,
             style: "cancel"
           },
-          { text: "Sim", onPress: () => BackHandler.exitApp() }
+          { text: "Sim", onPress: () => navigation.navigate('LoginScreen') }
         ]);
-        return true;
       };
 
-      const backHandler = BackHandler.addEventListener(
-        "hardwareBackPress",
-        backAction
-      );
+      navigation.addListener('beforeRemove', backAction);
 
-      return () => backHandler.remove();
+      return () => {
+        navigation.removeListener('beforeRemove', backAction);
+      };
+
     }, [userId])
   );
 

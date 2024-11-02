@@ -57,21 +57,21 @@ const GerirFuncionario = ({ navigation, route }) => {
 
       </View>
 
-
+      <View style={styles.searchBarView}>
+        <Icon name="search" size={20} color="#999" style={styles.searchIcon} />
+        <TextInput
+          style={styles.input}
+          placeholder="Busque por um funcionario"
+          value={searchQuery}
+          onChangeText={setSearchQuery}
+        />
+      </View>
       <View style={styles.tableHeader}>
         <Text style={styles.headerTextCodigo}>Codigo Funcionario</Text>
         <Text style={styles.headerTextNome}>Nome Funcionario</Text>
       </View>
 
-      <View style={styles.searchBarView}>
-        <Icon name="search" size={20} color="#999" style={styles.searchIcon} />
-        <TextInput
-          style={styles.input}
-          placeholder="Buscar por código ou nome do produto"
-          value={searchQuery}
-          onChangeText={setSearchQuery}
-        />
-      </View>
+      
 
 
       {/* <FlatList
