@@ -4,6 +4,7 @@ import { app } from '../config';
 import { getFirestore } from 'firebase/firestore';
 import { createFuncionario } from './FireBaseAdd'
 import { ScrollView } from 'react-native-gesture-handler';
+import { RadioButton } from 'react-native-paper';
 
 export const TelaFuncionarios = ( { navigation, route }) => {
   // campos dos funcionarios
@@ -16,6 +17,7 @@ export const TelaFuncionarios = ( { navigation, route }) => {
     const [funcBairro, setFuncBairro] = useState('');
     const [funcGenero, setFuncGenero] = useState('');
     const { userId } = route.params;
+    const [checked, setChecked] = React.useState('0');
 
     const handleAddProduto = async () => {
       if (funcNome && funcDataNascimento) {
@@ -108,13 +110,21 @@ export const TelaFuncionarios = ( { navigation, route }) => {
           onChangeText={(funcBairro)=> setFuncBairro(funcBairro)}
         />
         <Text style={styles.formInput}>Gênero</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="M/F"
-          placeholderTextColor="#c0c0c0"
-          value={funcBairro}
-          onChangeText={(funcGenero)=> setFuncGenero(funcGenero)}
-        />
+        <View style={styles.radioButton}>
+        <RadioButton
+        value="Homem"
+        status={ checked === 'Homem' ? 'checked' : 'unchecked' }
+        onPress={() => setChecked('Homem')}>
+        </RadioButton>
+        <Text style={styles.textBlack}>M</Text>
+        <RadioButton
+        value="Mulher"
+        status={ checked === 'Mulher' ? 'checked' : 'unchecked' }
+        onPress={() => setChecked('Mulher')}>
+        </RadioButton>
+        <Text style={styles.textBlack}>F</Text>
+
+        </View>
         <TouchableOpacity style={styles.addButton} onPress={handleAddProduto}>
           <Text style={styles.addButtonText}>Adicionar</Text>
         </TouchableOpacity>
@@ -141,11 +151,20 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 20,
   },
+  textBlack: {
+    color: 'black',
+  },
   titleH2: {
     paddingTop: 5,
     fontSize: 16,
     fontWeight: '500',
     marginBottom: 5,
+  },
+  radioButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginRight: 20,
+    marginBottom: 10,
   },
   input: {
     width: '100%',
@@ -197,6 +216,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     color: '#666',
   },
+
 });
 
 

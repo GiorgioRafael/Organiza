@@ -5,29 +5,32 @@ import { empresaDelete } from './FireBaseDelete';
 const DetalhesProduto = ({ navigation, route }) => {
   const [editable, setEditable] = useState(false);
   const { userId, produto } = route.params;
-  const [isEditing, setIsEditing] = useState(false);
-  const [titleMainButton, setTitleMainButton] = useState('Voltar');
-  const [corDoBotao, setCorDoBotao] = useState('#007AFF')
-  
-const handleMainButton = () => {
-  if(!isEditing){
-    navigation.goBack()
-  } else {
-    editItem()
-    Alert.alert('Produto atualizado com sucesso')
-  }
-}
+  const [editarTitle, setEditarTitle] = useState('Editar');
+  const [isEditPressed, setIsEditPressed] = useState(false);
 
-const toggleEditable = () => {
-  setIsEditing(true)
-  setEditable(!editable);
+const handleVoltar= () => {
+  if(isEditPressed){
+    Alert.alert('Você está editando um produto', 'Deseja sair sem salvar as alterações?',
+      [
+        { text: 'Cancelar', style: 'cancel' },
+        { 
+          text: 'Sair', 
+          onPress: () => {{navigation.navigate('TelaEstoque')}
+          }
+        },
+      ]
+    )
+  }else {
+    navigation.goBack()
+  }
 }
 
 const handleEdit = () => {
-  setTitleMainButton('Salvar')
-  setCorDoBotao('000')
-  toggleEditable();
-  }
+  setIsEditPressed(!isEditPressed);
+  setEditable(!editable);
+  setEditarTitle(editable ? 'Editar' : 'Salvar');
+  
+};
 
   const handleDelete = () => {
     Alert.alert(
@@ -70,17 +73,20 @@ const handleEdit = () => {
       </View> 
 
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={[styles.button, styles.editButton]} onPress={handleEdit}>
-          <Text style={styles.buttonText}>Editar</Text>
+        <TouchableOpacity
+          style={[styles.button, styles.editButton, isEditPressed && styles.editPressed]}
+          onPress={handleEdit}>
+          <Text style={styles.buttonText}>{editarTitle}</Text>
         </TouchableOpacity>
         <TouchableOpacity style={[styles.button, styles.deleteButton]} onPress={handleDelete}>
           <Text style={styles.buttonText}>Excluir</Text>
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={[styles.button, styles.backButton]} onPress={handleMainButton}>
-        <Text style={styles.buttonText}>{titleMainButton}</Text>
+      <TouchableOpacity style={[styles.button, styles.backButton]} onPress={handleVoltar}>
+        <Text style={styles.buttonText}>Voltar</Text>
       </TouchableOpacity>
+      <Text>Ainda precisa arrumar o botão de volta no menu</Text>
     </View>
   );
 }
@@ -139,13 +145,15 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   backButton: {
-    backgroundColor: '',
-    backgorunCOlor: `${corDoBotao}`
+    backgroundColor: '#007AFF', //NAD
   },
   buttonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  editPressed: {
+    backgroundColor : '#32936f',
   },
 });
 
