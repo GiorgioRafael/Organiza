@@ -1,12 +1,33 @@
 import React from 'react';
-import { Text, View, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { useState } from 'react';
+import { Text, View, StyleSheet, TouchableOpacity, Alert, TextInput } from 'react-native';
 import { empresaDelete } from './FireBaseDelete';
 const DetalhesProduto = ({ navigation, route }) => {
+  const [editable, setEditable] = useState(false);
   const { userId, produto } = route.params;
+  const [isEditing, setIsEditing] = useState(false);
+  const [titleMainButton, setTitleMainButton] = useState('Voltar');
+  const [corDoBotao, setCorDoBotao] = useState('#007AFF')
+  
+const handleMainButton = () => {
+  if(!isEditing){
+    navigation.goBack()
+  } else {
+    editItem()
+    Alert.alert('Produto atualizado com sucesso')
+  }
+}
 
-  const handleEdit = () => {
-    Alert.alert('Editar', 'Função de edição a ser implementada');
-  };
+const toggleEditable = () => {
+  setIsEditing(true)
+  setEditable(!editable);
+}
+
+const handleEdit = () => {
+  setTitleMainButton('Salvar')
+  setCorDoBotao('000')
+  toggleEditable();
+  }
 
   const handleDelete = () => {
     Alert.alert(
@@ -30,21 +51,21 @@ const DetalhesProduto = ({ navigation, route }) => {
       <View style={styles.infoContainer}>
         <View style={styles.infoRow}>
           <Text style={styles.label}>Código:</Text>
-          <Text style={styles.value}>{produto.Codigo_Produto}</Text>
+          <TextInput  editable={editable} style={styles.value}>{produto.Codigo_Produto}</TextInput>
         </View>
         <View style={styles.infoRow}>
           <Text style={styles.label}>Nome:</Text>
-          <Text style={styles.value}>{produto.NomeProduto}</Text>
+          <TextInput editable={editable} style={styles.value}>{produto.NomeProduto}</TextInput>
         </View>
         <View style={styles.infoRow}>
           <Text style={styles.label}>Quantidade:</Text>
-          <Text style={styles.value}>{produto.quantidade}</Text>
+          <TextInput editable={editable} style={styles.value}>{produto.quantidade}</TextInput>
         </View>
         <View style={styles.infoRow}>
           <Text style={styles.label}>Preço:</Text>
-          <Text style={styles.label}>
-        Preço: {produto.preço !== undefined ? produto.preço.toFixed(2) : 'Preço não disponível'}
-      </Text>
+          <TextInput editable={editable} style={styles.label}>
+            {produto.preço  !== undefined ? produto.preço.toFixed(2) : 'Preço não disponível'}
+          </TextInput>
         </View>
       </View> 
 
@@ -57,8 +78,8 @@ const DetalhesProduto = ({ navigation, route }) => {
         </TouchableOpacity>
       </View>
 
-      <TouchableOpacity style={[styles.button, styles.backButton]} onPress={() => navigation.goBack()}>
-        <Text style={styles.buttonText}>Voltar</Text>
+      <TouchableOpacity style={[styles.button, styles.backButton]} onPress={handleMainButton}>
+        <Text style={styles.buttonText}>{titleMainButton}</Text>
       </TouchableOpacity>
     </View>
   );
@@ -118,7 +139,8 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
   backButton: {
-    backgroundColor: '#007AFF',
+    backgroundColor: '',
+    backgorunCOlor: `${corDoBotao}`
   },
   buttonText: {
     color: '#fff',
