@@ -23,7 +23,7 @@ const handleVoltar= () => {
   }else {
     navigation.goBack()
   }
-}
+};
 
 const handleEdit = () => {
   setIsEditPressed(!isEditPressed);
