@@ -2,13 +2,18 @@ import React from 'react';
 import { useState } from 'react';
 import { Text, View, StyleSheet, TouchableOpacity, Alert, TextInput } from 'react-native';
 import { empresaDelete } from './FireBaseDelete';
+import { firebaseUpdate } from './FireBaseUpdate';
 const DetalhesProduto = ({ navigation, route }) => {
   const [editable, setEditable] = useState(false);
   const { userId, produto } = route.params;
   const [editarTitle, setEditarTitle] = useState('Editar');
   const [isEditPressed, setIsEditPressed] = useState(false);
+  const [nomeAtualizado, setNomeAtualizado] = useState(produto.NomeProduto);
+  const [precoAtualizado, setPrecoAtualizado] = useState(produto.preço ? produto.preço.toString() : '');
+  const [quantidadeAtualizada, setQuantidadeAtualizada] = useState(produto.quantidade ? produto.quantidade.toString() : '');
+  const [editing, setEditing] = useState(false);
 
-const handleVoltar= () => {
+  const handleVoltar= () => {
   if(isEditPressed){
     Alert.alert('Você está editando um produto', 'Deseja sair sem salvar as alterações?',
       [
@@ -26,10 +31,20 @@ const handleVoltar= () => {
 };
 
 const handleEdit = () => {
+  setEditing(!editing);
   setIsEditPressed(!isEditPressed);
   setEditable(!editable);
   setEditarTitle(editable ? 'Editar' : 'Salvar');
-  
+  if(editing === true && quantidadeAtualizada && nomeAtualizado && precoAtualizado){
+    let produtoAtualizado = {
+      NomeProduto: nomeAtualizado,
+      preço: parseFloat(precoAtualizado),
+      quantidade: parseInt(quantidadeAtualizada),
+    };
+    
+    firebaseUpdate(userId, produto.id, produtoAtualizado);
+    
+  }
 };
 
   const handleDelete = () => {
@@ -54,23 +69,41 @@ const handleEdit = () => {
       <View style={styles.infoContainer}>
         <View style={styles.infoRow}>
           <Text style={styles.label}>Código:</Text>
-          <TextInput  editable={editable} style={styles.value}>{produto.Codigo_Produto}</TextInput>
+          <TextInput
+          editable={editable} 
+          style={styles.value}
+          value={produto.Codigo_Produto}/>
+          
         </View>
         <View style={styles.infoRow}>
           <Text style={styles.label}>Nome:</Text>
-          <TextInput editable={editable} style={styles.value}>{produto.NomeProduto}</TextInput>
+          <TextInput 
+          editable={editable} 
+          value={nomeAtualizado}
+          onChangeText={(nomeAtualizado)=> setNomeAtualizado(nomeAtualizado)}
+          style={styles.value}/>
         </View>
         <View style={styles.infoRow}>
           <Text style={styles.label}>Quantidade:</Text>
-          <TextInput editable={editable} style={styles.value}>{produto.quantidade}</TextInput>
+          <TextInput 
+          value={quantidadeAtualizada} 
+          editable={editable}
+          onChangeText={(quantidadeAtualizada)=> setQuantidadeAtualizada(quantidadeAtualizada)}
+          style={styles.value}
+          />
         </View>
+
+      {/* Input de preço */}
         <View style={styles.infoRow}>
           <Text style={styles.label}>Preço:</Text>
-          <TextInput editable={editable} style={styles.label}>
-            {produto.preço  !== undefined ? produto.preço.toFixed(2) : 'Preço não disponível'}
-          </TextInput>
+          <TextInput
+           editable={editable} 
+           style={styles.label}
+           value={precoAtualizado}
+          onChangeText={(precoAtualizado)=> setPrecoAtualizado(precoAtualizado)}
+          />
         </View>
-      </View> 
+      </View>
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity
