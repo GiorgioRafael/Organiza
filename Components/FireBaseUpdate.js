@@ -13,3 +13,9 @@ export async function firebaseUpdate(userId, produtoId, produtoAtualizado) {
         console.error('Erro ao atualizar o produto', error);
     }
 }
+
+export const onProductUpdate = (userId, productId, callback) => {
+    return firebase.database().ref(`/users/${userId}/products/${productId}`).on('value', snapshot => {
+      callback(snapshot.val());
+    });
+  };

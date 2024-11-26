@@ -63,7 +63,7 @@ const Routes = () => {
           options={{ headerShown: false }} // Hide header on EmpresaLogin
         />
         <Stack.Screen 
-          name="DetalhesProduto" 
+          name="DetalhesProduto"  
           component={DetalhesProduto} 
           initialParams={{ userId }}
         />

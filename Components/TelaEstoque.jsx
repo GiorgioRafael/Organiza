@@ -71,10 +71,7 @@ const TelaEstoque = ({ navigation, route }) => {
           <Icon name="add-circle-outline" size={24} color="#fff" />
           <Text style={styles.optionButtonText}>Novo Produto</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.optionButtonEdit}>
-          <Icon name="exit-to-app" size={24} color="#fff" />
-          <Text style={styles.optionButtonText}>Registrar saída</Text>
-        </TouchableOpacity>
+        
         <TouchableOpacity style={styles.optionButton} onPress={() => navigation.navigate('GerirFuncionario')}>
           <Icon name="people" size={20} color="#fff" />
           <Text style={styles.optionButtonTextFunc}>Funcionários</Text>
@@ -172,13 +169,13 @@ const styles = StyleSheet.create({
   },
   optionButtonText: {
     color: '#fff',
-    fontSize: 12,
+    fontSize: 15,
     marginLeft: 5,
     textAlign: 'center',
   },
   optionButtonTextFunc: {
     color: '#fff',
-    fontSize: 11,
+    fontSize: 15,
     marginLeft: 5,
     textAlign: 'center',
   },
@@ -210,28 +207,28 @@ const styles = StyleSheet.create({
   },
 
   headerTextCodigo: {
-    fontSize: 11,
+    fontSize: 13,
     fontWeight: 'bold',
     color: '#fff',
     flex: 1,
     textAlign: 'left',
   },
   headerTextDescricao: {
-      fontSize: 11,
+      fontSize: 13,
       fontWeight: 'bold',
       color: '#fff',
       flex: 1,
       textAlign: 'left',
   },
   headerTextQtd: {
-    fontSize: 11,
+    fontSize: 13,
     fontWeight: 'bold',
     color: '#fff',
     flex: 1,
     textAlign: 'left',
   },
   headerTextPreco: {
-    fontSize: 11,
+    fontSize: 13,
     fontWeight: 'bold',
     color: '#fff',
     flex: 1,
@@ -264,18 +261,18 @@ const styles = StyleSheet.create({
     marginEnd: 10,
   },
   itemName: {
-    fontSize: 10,
+    fontSize: 12,
     fontWeight: '500',
     flex: 2,
     textAlign: 'left',
   },
   itemQuantity: {
-    fontSize: 10,
+    fontSize: 13,
     flex: 1,
     textAlign: 'left',
   },
   itemPrice: {
-    fontSize: 10,
+    fontSize: 13,
     flex: 0.8,
     textAlign: 'left',
   },
