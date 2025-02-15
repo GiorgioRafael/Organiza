@@ -71,16 +71,6 @@ const GerirFuncionario = ({ navigation, route }) => {
         <Text style={styles.headerTextNome}>Nome Funcionario</Text>
       </View>
 
-      
-
-
-      {/* <FlatList
-        data={filteredProdutos}
-        keyExtractor={(item) => item.id}
-        renderItem={renderProduto}
-        ListEmptyComponent={<Text style={styles.emptyText}>Nenhum produto no estoque.</Text>}
-        style={styles.list}
-      /> */}
     </View>
   );
 };

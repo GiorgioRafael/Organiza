@@ -7,51 +7,47 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { RadioButton } from 'react-native-paper';
 
 export const TelaFuncionarios = ( { navigation, route }) => {
-  // campos dos funcionarios
-    const [funcNome, setFuncNome] = useState('');   
-    const [funcDataNascimento, setFuncDataNascimento] = useState('');
-    const [funcCpf, setFuncCpf] = useState('');
-    const [funcRg, setFuncRg] = useState('');
-    const [funcContato, setFuncContato] = useState('');
-    const [funcEmail, setFuncEmail] = useState('');
-    const [funcBairro, setFuncBairro] = useState('');
-    const [funcGenero, setFuncGenero] = useState('');
-    const { userId } = route.params;
-    const [checked, setChecked] = React.useState('0');
-
-    const handleAddProduto = async () => {
-      if (funcNome && funcDataNascimento) {
-        let funcInfo = {
-          Nome: funcNome,
-          DataDeNascimento: funcDataNascimento,
-          CPF: funcCpf,
-          RG: funcRg,
-          Contato: funcContato,
-          Email: funcEmail,
-          Bairro: funcBairro,
-          Genero: funcGenero,
+  const [funcNome, setFuncNome] = useState('');   
+  const [funcDataNascimento, setFuncDataNascimento] = useState('');
+  const [funcCpf, setFuncCpf] = useState('');
+  const [funcRg, setFuncRg] = useState('');
+  const [funcContato, setFuncContato] = useState('');
+  const [funcEmail, setFuncEmail] = useState('');
+  const [funcBairro, setFuncBairro] = useState('');
+  const [funcGenero, setFuncGenero] = useState('');
+  const { userId } = route.params;
+  const [checked, setChecked] = React.useState('0');
+  const handleAddProduto = async () => {
+    if (funcNome && funcDataNascimento) {
+      let funcInfo = {
+        Nome: funcNome,
+        DataDeNascimento: funcDataNascimento,
+        CPF: funcCpf,
+        RG: funcRg,
+        Contato: funcContato,
+        Email: funcEmail,
+        Bairro: funcBairro,
+        Genero: funcGenero,
         };
-        try {
-          await createFuncionario(userId, funcInfo);
-          Alert.alert('Funcionario registrado com sucesso');
-            setFuncNome('');
-            setFuncDataNascimento('');
+      try {
+        await createFuncionario(userId, funcInfo);
+        Alert.alert('Funcionario registrado com sucesso');
+        setFuncNome('');
+        setFuncDataNascimento('');
         } catch (error) {
           Alert.alert('Erro ao cadastrar o funcionario', error.message);
         }
-      } else {
-        Alert.alert('Por favor, preencha todos os campos.');
+    } else {
+      Alert.alert('Por favor, preencha todos os campos.');
       }
     };
     
-  // Função para renderizar cada item da lista
 
   return (
     <ScrollView contentContainerStyle={styles.scrollContainer}>
-<View style={styles.container}>
+      <View style={styles.container}>
         <Text style={styles.title}>Criacao de novo funcionario</Text>
   
-        {/* Campo para inserir o nome do produto */}
         <Text style={styles.formInput}>Nome do funcionario</Text>
         <TextInput
         

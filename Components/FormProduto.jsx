@@ -54,13 +54,11 @@ export const FormProduto = ( {navigation, route }) => {
       }
     };
     
-  // Função para renderizar cada item da lista
 
   return (
 <View style={styles.container}>
         <Text style={styles.title}>Estoque  </Text>
   
-        {/* Campo para inserir o nome do produto */}
         <Text style={styles.formInput}>Código do produto</Text>
         <TextInput
         

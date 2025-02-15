@@ -26,7 +26,7 @@ export default App;
 
 
 
-//Folha de estilos 
+//estilização
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     top: 0,
-    height: '110%',
+    height: '100%',
   },
   needHelp: {
     color: '#fff',

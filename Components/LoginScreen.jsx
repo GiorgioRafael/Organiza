@@ -6,8 +6,8 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 
 
 const LoginScreen = ({ navigation }) => {
-    const [email, setEmail] = useState('123123@123.com');
-    const [password, setPassword] = useState('123123');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
   
     const auth = FIREBASE_AUTH;
 
@@ -31,8 +31,6 @@ const LoginScreen = ({ navigation }) => {
     };
 
 
-     //Handles dos botões ==================================================
-     // SignIn - Função para logar com email e senha
       const signIn = async () => {
         const validation = validateInputs();
         if (!validation.valid) {
@@ -53,7 +51,6 @@ const LoginScreen = ({ navigation }) => {
       } 
     }
   
-//Handles dos botões, simples para redirecionar para a tela correta.
     const handleFuncionario = () => {
       navigation.navigate('FuncionarioLogin'); //ir para tela estoque
     };
@@ -62,7 +59,6 @@ const LoginScreen = ({ navigation }) => {
       navigation.navigate('EmpresaLogin'); //ir para tela estoque
     };
 
-  //Corpo do app ==================================================
     const title = '{Organiza}'
     return (
       <View style={styles.container}>
@@ -119,7 +115,6 @@ const LoginScreen = ({ navigation }) => {
   }
 
 
-  //Estilos ==================================================
   const styles = StyleSheet.create({
     container: {
       flex: 1,

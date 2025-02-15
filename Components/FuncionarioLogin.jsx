@@ -50,7 +50,7 @@ const handleLoginFuncionario = async () => {
   
     const handleCompanyPress = () => {
       navigation.navigate('EmpresaLogin');
-      // logica para criacao de conta/empresa
+
     };
   
     const title = '{Organiza}';
